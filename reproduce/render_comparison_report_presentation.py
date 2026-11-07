@@ -144,7 +144,11 @@ def render(tables, output):
             plt.close(fig)
             figures.append(dict(name=name, cache=cache, metric=metric, note=note,
                 complete_cells_in_cache=sum(key[0] == cache for key in measured)))
-        text = f'''# Descriptive fixed-configuration comparison
+        matching_limit = ('All required configurations are matched; repetition variation and configuration-major time windows still limit rankings.'
+            if summary['complete'] and summary['all_four_matched_cells'] == 336 else
+            'Incomplete matching and repetition variation limit rankings; configuration-major time windows add temporal uncertainty.')
+        text = f'''<!-- register: benchmark report | reader: serving engineer | consumed: result and chart inspection -->
+# Descriptive fixed-configuration comparison
 
 The tables contain {summary['accepted_cells']} accepted cells of 336: {summary['accepted_cold_cells']}/288 cold and {summary['accepted_warm_cells']}/48 warm-prefix cells. They retain {summary['measured_repetitions']} measured repetitions and {summary['measured_requests']:,} requests. Four-configuration matched coverage is {summary['all_four_matched_cells']} cells. Table coverage complete: {str(summary['complete']).lower()}.
 
@@ -152,7 +156,7 @@ The charts use complete three-repetition cells only. Missing measurements stay b
 
 Cold measurements use cache-busted namespaces; cache flush or reset was not verified. Warm-designated misses stay in warm results with achieved native-counter hit fractions. A missing fraction is left blank. The one-million-input row requests 512 output tokens; other rows request 2,048.
 
-This report presents finite bursts for the four frozen configurations. Necessary backend and KV-format differences are part of those configurations. It does not establish topology causation, optimal tuning, sustained capacity, task-quality equivalence or production reliability. Repetition variation and incomplete matching prevent an unsupported winner.
+This report presents finite bursts for the four frozen configurations. Necessary backend and KV-format differences are part of those configurations. It does not establish topology causation, optimal tuning, sustained capacity, task-quality equivalence or production reliability. {matching_limit}
 
 The portable table verifier recomputes timing and usage arithmetic before rendering. This rendering step grants no new raw-stream, profile, placement or telemetry acceptance, and does not establish final campaign completion. Original source-bound capture audits and the final campaign audit remain separate evidence.
 
@@ -178,7 +182,7 @@ The portable table verifier recomputes timing and usage arithmetic before render
 
 ## Reproduce the figures
 
-Install the pinned report requirements in an isolated Python environment, then run `python3 -B reproduce/render_comparison_report.py TABLE_DIRECTORY FRESH_OUTPUT_DIRECTORY`. The input is a sealed sanitized table directory, not an unverified result summary. `provenance.json` records source fingerprints and the generator and plotting versions. Existing output directories are rejected. A failed input check leaves prior reports unchanged.
+Install the pinned report requirements in an isolated Python environment, then run `python3 -B reproduce/render_comparison_report_presentation.py TABLE_DIRECTORY FRESH_OUTPUT_DIRECTORY`. The input is a sealed sanitized table directory, not an unverified result summary. `provenance.json` records source fingerprints and the generator and plotting versions. Existing output directories are rejected. A failed input check leaves prior reports unchanged.
 '''
         (stage / 'README.md').write_text(text)
         runtime.atomic_json(stage / 'provenance.json', dict(status='descriptive_report_rendered',

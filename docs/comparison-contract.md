@@ -1,7 +1,7 @@
 <!-- register: benchmark contract | reader: benchmark reproducer | consumed: workload and claim verification -->
 # Compare four fixed configurations across context length and demand
 
-This experiment compares DeepSeek V4.1 Flash 1017 on eight B200 GPUs using four fixed NoSpec deployments. It measures finite request bursts. It makes no claim of globally optimal tuning, pure topology causation, sustainable serving capacity, task-quality equivalence or production reliability.
+This experiment compares DeepSeek V4.1 Flash 1017 on eight B200 GPUs using four fixed deployments with speculation disabled (NoSpec). It measures finite request bursts. It makes no claim of globally optimal tuning, pure topology causation, sustainable serving capacity, task-quality equivalence or production reliability. TP, DP and EP denote tensor, data and expert parallelism; the number is the parallel group size.
 
 | Configuration | Allocation across eight GPUs | Attention and expert parallelism |
 | --- | --- | --- |

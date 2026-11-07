@@ -64,7 +64,9 @@ class PerformanceTests(unittest.TestCase):
     inputs=json.loads((Path(d)/'capture/fixed-inputs.json').read_text())
     described=comparison_results.describe([task],{'s0':stored},inputs)
     timing=described['request_outcomes'][0]
-    self.assertLessEqual(timing['first_output_ns'],timing['first_visible_text_ns'])
+    self.assertLess(timing['first_output_ns'],timing['first_visible_text_ns'])
+    self.assertEqual(stored['quality_score']['timing']['first_visible_seconds'],timing['first_visible_text_seconds'])
+    self.assertGreater(stored['quality_score']['timing']['first_visible_seconds'],stored['quality_score']['timing']['first_output_seconds'])
     self.assertEqual(described['valid_output_tokens'],2048)
     self.assertEqual(described['burst_makespan_seconds'],(stored['raw']['terminal_ns']-stored['raw']['start_ns'])/1e9)
     mode['value']='valid'

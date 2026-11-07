@@ -3,6 +3,8 @@
 
 Three serial screens were planned: static DSpark K5, one graph-capture configuration, and 8192 versus 16384 batched-token budget. Each complete screen uses four matched workloads and three paired repetitions per arm.
 
+DSpark is the tested speculative decoding method. K5 sets five speculative tokens per draft step; this candidate uses probabilistic draft sampling with adaptive verification disabled. Its [recorded profile](profiles/dspark-candidate.json) defines the complete candidate configuration.
+
 | Screen | Outcome | Audited measured requests | Reserved total requests | Node hours |
 | --- | --- | ---: | ---: | ---: |
 | dspark | inconclusive | 108 | 146 | 3.35 |

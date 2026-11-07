@@ -490,7 +490,7 @@ def verify(root):
                 if visible or reasoning or tools:
                     if first_output is None: first_output=offset
                     last_output=offset
-                if visible and first_visible is None: first_visible=offset
+                if visible.strip() and first_visible is None: first_visible=offset
                 if choice.get('finish_reason') is not None: finishes.append(choice['finish_reason'])
         if not raw['complete'] or len(usage)!=1 or len(finishes)!=1: raise ValueError('invalid stream')
         tokens=usage[0]['completion_tokens']

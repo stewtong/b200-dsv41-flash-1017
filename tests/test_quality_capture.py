@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 import json
 from pathlib import Path
-import sys,tempfile,threading,unittest,subprocess
+import sys,tempfile,threading,time,unittest,subprocess
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'reproduce'))
 import quality_capture,quality_tasks,verify_wire,verify_quality_capture
 
@@ -27,9 +27,14 @@ class QualityCaptureTests(unittest.TestCase):
                 if isinstance(answer,list):answer=json.dumps(answer)
                 events=[{'choices':[{'delta':{'content':answer},'finish_reason':'stop'}]},
                         {'choices':[],'usage':{'prompt_tokens':task['input_tokens'],'completion_tokens':2}}]
-                raw=(b'data: {bad}\n\n' if malformed else
+                prefix=b'data: {"choices":[{"delta":{"content":" "}}]}\n\n'
+                raw=(b'data: {bad}\n\n' if malformed else prefix+
                      ''.join('data: '+json.dumps(e)+'\n\n' for e in events).encode()+b'data: [DONE]\n\n')
-                self.send_response(200);self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw)
+                self.send_response(200);self.send_header('Content-Length',str(len(raw)));self.end_headers()
+                if not malformed:
+                    self.wfile.write(prefix);self.wfile.flush();time.sleep(.01)
+                    raw=raw[len(prefix):]
+                self.wfile.write(raw)
             def log_message(self,*args):pass
         server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
@@ -60,6 +65,7 @@ class QualityCaptureTests(unittest.TestCase):
         self.assertEqual(summary['requests'],2);self.assertEqual(summary['valid_requests'],1)
         self.assertEqual([r['valid'] for r in rows],[True,False]);self.assertFalse(aborts)
         self.assertEqual(status,'captured_with_invalid_requests_cleanup_pending')
+        self.assertGreater(rows[0]['timing']['first_visible_seconds'],rows[0]['timing']['first_output_seconds'])
         for row in rows:verify_wire.verify_complete(row['raw'])
         self.assertFalse(rows[1]['quality_score']['correct'])
 

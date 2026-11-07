@@ -106,7 +106,7 @@ def verify(root, tasks, repetition, target):
                 if output:
                     if first is None:first=offset
                     last=offset
-                if text and first_visible is None:first_visible=offset
+                if text.strip() and first_visible is None:first_visible=offset
                 if choice.get('finish_reason') is not None:finishes.append(choice['finish_reason'])
         parsed=raw.get('complete') is True and len(usage)==len(finishes)==1 and first is not None
         tokens=usage[0].get('completion_tokens') if parsed else None

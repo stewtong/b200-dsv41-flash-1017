@@ -72,9 +72,27 @@ class Cancellation:
                 sock.close()
             self.sockets.clear()
 
+class _DeadlineSocket(socket.socket):
+    """Bound buffered HTTP reads and sends by one absolute request deadline."""
+    def _set_remaining_timeout(self):
+        remaining = (self.deadline_ns - time.monotonic_ns()) / 1e9
+        if remaining <= 0:
+            raise TimeoutError('request deadline expired during HTTP transport')
+        self.settimeout(remaining)
+
+    def recv_into(self, buffer, nbytes=0, flags=0):
+        self._set_remaining_timeout()
+        return super().recv_into(buffer, nbytes, flags)
+
+    def sendall(self, data, flags=0):
+        self._set_remaining_timeout()
+        return super().sendall(data, flags)
+
+
 def _connect_socket(host,port,start_ns,timeout,cancellation):
     """Register the socket before connecting, with bounded cancellation polls."""
-    sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    sock=_DeadlineSocket(socket.AF_INET,socket.SOCK_STREAM)
+    sock.deadline_ns=start_ns+int(timeout*1e9)
     try:
         sock.setblocking(False)
         if cancellation:cancellation.register(sock)
@@ -217,7 +235,7 @@ def summarize_stream(result):
             if visible or reasoning or tools:
                 if first_output is None: first_output = row['offset_ns']
                 last_output = row['offset_ns']
-            if visible and first_visible is None: first_visible = row['offset_ns']
+            if visible.strip() and first_visible is None: first_visible = row['offset_ns']
     if not result['complete'] or len(usage) != 1 or len(finishes) != 1 or first_output is None:
         raise ValueError('incomplete stream, missing output, finish or unique usage')
     return {'first_output_ns': first_output, 'first_visible_ns': first_visible, 'last_output_ns': last_output,

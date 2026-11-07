@@ -20,7 +20,9 @@ A profile hash covers a normalized template: its example image, model/cache moun
 
 The measured CPU policy reserves four whole physical cores on each of two NUMA nodes for clients, including both SMT threads, and assigns the remaining CPUs to the engines. The changed measured capture method uses one owned client subprocess inside that allocation. `cpu_partition.py` discovers the CPU identities; the template's `0,1` list does not describe the measured server allocation.
 
-The following command renders the engine and router argument structure for one configuration. It starts no processes. Replace the model/cache paths with local paths and use the supervised campaign entry point for owned execution, readiness, monitoring, capture and cleanup.
+This export does not include the measured CPU model, total core count, host RAM, host driver version or GPU interconnect description. CPU Engram offload makes host resources relevant to absolute rates. The public records establish configuration intent and the listed pins, but do not establish host parity for a new deployment.
+
+The following command renders the engine and router argument structure for one configuration. It starts no processes. Replace the model/cache paths with local paths for the preview. Live execution requires the source-level assembly and inherited preconditions in the [reproduction notes](reproduction-notes.md).
 
 ```sh
 python3 -B reproduce/launcher.py --layout 2xtp4 --image vllm/vllm-openai@sha256:aeb580d55ee3dcccd7b5c78d7871326f367bee5cfd8ca8e411c253d7983a0046 --run-id reproduction-preview --model-dir /models/DeepSeek-V4.1-Flash-1017 --cache-dir /cache/dsv41

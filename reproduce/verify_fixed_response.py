@@ -41,7 +41,7 @@ def evaluate(task,raw,request_id=None,session_id=None):
     if raw.get('complete') is True and not binding:raise ValueError('fixed response lacks exact transmitted request binding')
     if raw.get('complete') is True:verify_wire.verify_complete(raw)
     else:verify_wire.retained_bytes(raw)
-    usage=[];finishes=[];visible=[];first=None;last=None;unexpected=False
+    usage=[];finishes=[];visible=[];first=None;first_visible=None;last=None;unexpected=False
     for row in raw.get('events',[]):
         if row.get('kind')!='event':continue
         event=row['data'];offset=row['offset_ns']
@@ -55,6 +55,7 @@ def evaluate(task,raw,request_id=None,session_id=None):
             if content is not None and not isinstance(content,str):raise ValueError('fixed visible delta is not text')
             if content:
                 visible.append(content);first=offset if first is None else first;last=offset
+                if content.strip() and first_visible is None:first_visible=offset
             if choice.get('finish_reason') is not None:finishes.append(choice['finish_reason'])
     text=''.join(visible);u=usage[0] if len(usage)==1 and isinstance(usage[0],dict) else {}
     prompt=u.get('prompt_tokens');tokens=u.get('completion_tokens');cap=task['output_tokens']
@@ -75,7 +76,7 @@ def evaluate(task,raw,request_id=None,session_id=None):
     timing=None
     if correct:
         seconds=(end-start)/1e9
-        timing={'request_seconds':seconds,'first_output_seconds':first/1e9,'first_visible_seconds':first/1e9,
+        timing={'request_seconds':seconds,'first_output_seconds':first/1e9,'first_visible_seconds':first_visible/1e9 if first_visible is not None else None,
             'stream_window_seconds_per_token':(last-first)/1e9/(tokens-1) if tokens>1 else None,
             'request_output_tokens_per_second':tokens/seconds}
     scope='performance transport/UTF-8/nonempty/usage/channel validity; token throughput is not correct-task goodput' if performance else 'fixed transport/length/ASCII/identifier/obvious-periodic-filler check; no general task-quality or exact event-token timing claim'

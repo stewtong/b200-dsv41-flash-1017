@@ -29,11 +29,16 @@ class StreamTests(unittest.TestCase):
     def test_reasoning_precedes_visible_and_usage_is_unique(self):
         result = {'complete': True, 'events': [
             {'kind':'event', 'offset_ns':2, 'data':{'choices':[{'delta':{'reasoning_content':'r'}}]}},
+            {'kind':'event', 'offset_ns':3, 'data':{'choices':[{'delta':{'content':' \n'}}]}},
             {'kind':'event', 'offset_ns':4, 'data':{'choices':[{'delta':{'content':'a'}, 'finish_reason':'stop'}]}},
             {'kind':'event', 'offset_ns':5, 'data':{'choices':[], 'usage':{'completion_tokens':2}}}]}
         summary = s.summarize_stream(result)
         self.assertEqual((summary['first_output_ns'], summary['first_visible_ns'], summary['last_output_ns']), (2, 4, 4))
         self.assertEqual(summary['task_validity'], 'unscored')
+        whitespace = {'complete': True, 'events': [
+            {'kind':'event', 'offset_ns':2, 'data':{'choices':[{'delta':{'content':' \n'}, 'finish_reason':'stop'}]}},
+            {'kind':'event', 'offset_ns':3, 'data':{'choices':[], 'usage':{'completion_tokens':2}}}]}
+        self.assertIsNone(s.summarize_stream(whitespace)['first_visible_ns'])
         result['events'].append(result['events'][-1])
         with self.assertRaises(ValueError): s.summarize_stream(result)
 
@@ -92,9 +97,38 @@ class StreamTests(unittest.TestCase):
             def close(self):self.closed=True
         sock=Sock();cancel=s.Cancellation()
         def poll(*args):cancel.cancel();return [],[],[]
-        with patch.object(s.socket,'socket',return_value=sock),patch.object(s.select,'select',side_effect=poll):
+        with patch.object(s,'_DeadlineSocket',return_value=sock),patch.object(s.select,'select',side_effect=poll):
             with self.assertRaises(InterruptedError):s._connect_socket('127.0.0.1',8000,time.monotonic_ns(),100,cancel)
         self.assertTrue(sock.closed);self.assertFalse(cancel.sockets)
+
+    def test_dripped_headers_cannot_extend_total_request_deadline(self):
+        finished = threading.Event()
+        class SlowHeaders(BaseHTTPRequestHandler):
+            def do_POST(self):
+                self.rfile.read(int(self.headers['Content-Length']))
+                try:
+                    self.wfile.write(b'HTTP/1.1 200 OK\r\nX-Slow: ');self.wfile.flush()
+                    for _ in range(15):
+                        time.sleep(.04);self.wfile.write(b'a');self.wfile.flush()
+                    self.wfile.write(b'\r\nContent-Length: 0\r\n\r\n');self.wfile.flush()
+                    finished.set()
+                except (BrokenPipeError, ConnectionResetError):pass
+            def log_message(self, *args):pass
+        server = HTTPServer(('127.0.0.1', 0), SlowHeaders)
+        thread = threading.Thread(target=server.serve_forever, daemon=True);thread.start()
+        cancellation=s.Cancellation()
+        try:
+            started=time.monotonic()
+            result=s.capture(f'http://127.0.0.1:{server.server_port}/v1/chat/completions',{},'drip',.18,cancellation)
+            elapsed=time.monotonic()-started
+            self.assertFalse(result['complete'])
+            self.assertEqual(result['error_phase'],'response_headers')
+            self.assertIn('TimeoutError',result['error'])
+            self.assertLess(elapsed,.45)
+            self.assertFalse(finished.is_set())
+            self.assertFalse(cancellation.sockets)
+        finally:
+            server.shutdown();server.server_close();thread.join()
 
     def test_timeout_does_not_prove_server_cancellation(self):
         started = threading.Event(); finished = threading.Event()

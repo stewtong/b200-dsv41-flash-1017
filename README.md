@@ -23,7 +23,7 @@ Fixtures exercise deterministic streaming, persistence, interruption and recover
 
 `reproduce/launcher.py` renders digest-pinned Docker and router arguments with disjoint GPU groups, loopback ports and inference retries disabled. The supervised path binds tokenizer inputs, explicit profiles, semantic readiness, safety monitoring, worker evidence, excluded warmup, request capture and exact-container cleanup. Rendering alone starts no processes.
 
-The checked-in harness is a portable source snapshot. Historical measurements can use different immutable producer versions. Result provenance must identify those original versions; running a newer verifier does not replace an original-source audit.
+The checked-in harness supports the local fixtures and public result checks below. Live node execution requires source-level operator assembly and retains campaign-specific preconditions; this is not a turnkey fresh-node deployment. The [reproduction notes](docs/reproduction-notes.md) identify those requirements. Historical measurements can use different immutable producer versions. Result provenance must identify those original versions; running a newer verifier does not replace an original-source audit.
 
 [Reproduction notes](docs/reproduction-notes.md) describe ownership, evidence and timing precautions. The [publication policy](docs/publication-policy.md) keeps raw captures and operational failure artifacts outside Git while preserving material scientific outcomes.
 
