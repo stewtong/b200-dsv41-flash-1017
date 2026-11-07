@@ -1,0 +1,16 @@
+{
+  "bytes": 5231,
+  "git_blob": "3b2d135a2f20a462d773716575d793dcb0c71e84",
+  "interpretation": "recommended sampling table; inference/README temperature0.6 is an interactive example, recipe0.95 is a different published workload",
+  "lines": [
+    81,
+    82
+  ],
+  "path": "README.md",
+  "revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "schema": "dsv41-sampling-source/v1",
+  "sha256": "b72b796e4f4c739eca5d0ad360a7679b39118ca7eb64891f7151a527b292c42a",
+  "source": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/blob/1bae0e1088993b9b82de08f59de5be5a34e42170/README.md",
+  "temperature": 1.0,
+  "top_p": 1.0
+}

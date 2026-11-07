@@ -1,0 +1,197 @@
+{
+ "schema": "dsv41-b200-campaign/v2",
+ "status": "planned",
+ "engine": "vllm",
+ "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+ "model_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+ "topologies": [
+  "2xtp4",
+  "4xdep2",
+  "2xdep4",
+  "dep8"
+ ],
+ "input_tokens": [
+  1000,
+  8000,
+  16000,
+  32000,
+  64000,
+  128000,
+  256000,
+  400000,
+  512000,
+  768000,
+  1000000
+ ],
+ "node_concurrency": [
+  1,
+  2,
+  4,
+  8,
+  16,
+  32,
+  64,
+  128
+ ],
+ "cache_states": [
+  "cold",
+  "warm_prefix"
+ ],
+ "core_output_tokens": 2048,
+ "repetitions": 3,
+ "core_expected_cells": 704,
+ "core_expected_repetitions": 2112,
+ "core_expected_measured_requests": 67320,
+ "output_sensitivity": {
+  "input_tokens": [
+   1000,
+   32000,
+   128000,
+   512000,
+   1000000
+  ],
+  "node_concurrency": [
+   1,
+   8,
+   32,
+   128
+  ],
+  "output_tokens": [
+   512,
+   8192
+  ],
+  "cache_states": [
+   "cold",
+   "warm_prefix"
+  ],
+  "repetitions": 3,
+  "expected_cells": 320,
+  "expected_measured_requests": 40560
+ },
+ "historical_bridge_extra": {
+  "input_tokens": [
+   1000000
+  ],
+  "node_concurrency": [
+   2,
+   4,
+   16
+  ],
+  "output_tokens": [
+   512
+  ],
+  "cache_states": [
+   "cold"
+  ],
+  "repetitions": 3,
+  "expected_cells": 12,
+  "expected_measured_requests": 264
+ },
+ "quality_grid": {
+  "axes": "all core topologies, input lengths and node concurrencies",
+  "cache_states": [
+   "cold",
+   "warm_prefix"
+  ],
+  "repetitions": 3,
+  "output_contract": "natural stop, bounded answer with seeded expected value",
+  "expected_cells": 704,
+  "expected_requests": 67320,
+  "budget_reductions_preregistered": {
+   "a_concurrency_subset": {
+    "node_concurrency": [
+     1,
+     8,
+     128
+    ],
+    "expected_cells": 264
+   },
+   "b_embedded_retrieval": "score seeded retrieval answer from leading tokens of core forced-length responses; drop separate grid"
+  }
+ },
+ "cell_statuses": [
+  "planned",
+  "running",
+  "passed",
+  "failed",
+  "admission_rejected",
+  "timed_out",
+  "invalid",
+  "unsupported",
+  "not_run_safety",
+  "not_run_budget"
+ ],
+ "concurrency_scope": "node-wide outstanding requests including queued requests; measured engine/rank distribution required",
+ "capacity_rule": "keep all planned rows; an unexecuted higher rung is not a measured failure",
+ "excludes_from_counts": [
+  "warm-prefix conditioning",
+  "kernel warmup",
+  "tuning",
+  "GSM8K",
+  "coding and API panels",
+  "arrival tests",
+  "soaks",
+  "boundary extension"
+ ],
+ "anchor_only_topologies": [
+  "tp8",
+  "4xtp2"
+ ],
+ "common_settings_anchors": {
+  "topologies": [
+   "2xtp4",
+   "4xdep2",
+   "2xdep4",
+   "dep8",
+   "tp8",
+   "4xtp2"
+  ],
+  "input_tokens": [
+   8000,
+   128000,
+   512000,
+   1000000
+  ],
+  "node_concurrency": [
+   1,
+   8,
+   32
+  ],
+  "cache_states": [
+   "cold",
+   "warm_prefix"
+  ],
+  "repetitions": 3,
+  "expected_cells": 144,
+  "expected_measured_requests": 5904,
+  "greedy_sampling_control": {
+   "input_tokens": [
+    128000
+   ],
+   "node_concurrency": [
+    8
+   ],
+   "cache_states": [
+    "cold"
+   ],
+   "repetitions": 3,
+   "expected_cells": 6,
+   "expected_measured_requests": 144
+  }
+ },
+ "core_sampling": {
+  "temperature": 1.0,
+  "top_p": "open: model card (1.0, as recorded in deployment-context.md) vs vLLM recipe (0.95); freeze from pinned card at qualification",
+  "seed": "per request",
+  "thinking": false,
+  "min_tokens_equals_max_tokens": true,
+  "ignore_eos": true,
+  "record": "DSpark drafted/accepted/verified counts and mean acceptance length per cell"
+ },
+ "publication_repo": {
+  "url": "https://github.com/stewtong/b200-dsv41-flash-1017",
+  "visibility": "public",
+  "checkout": "repos/b200-dsv41-flash-1017",
+  "pushed": false
+ }
+}

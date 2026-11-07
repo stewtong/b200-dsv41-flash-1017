@@ -1,0 +1,39 @@
+# Only reviewed publication surfaces belong in this repository.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/configs/
+!/docs/
+!/reproduce/
+!/tests/
+!/results/
+
+# Local engineering notes and superseded interim exports stay private.
+/AGENTS.md
+/LESSONS.md
+/docs/partial-*.md
+/results/*
+!/results/fixed-comparison/
+!/results/context-1m-output2048/
+!/results/tuning-adaptation/
+
+# Runtime captures, incident evidence, archives and credentials.
+__pycache__/
+*.py[cod]
+*.log
+*.jsonl
+*.tar
+*.tar.gz
+*.zip
+*.pem
+*.key
+.env
+.env.*
+.venv/
+raw/
+evidence/
+job-monitor/
+campaign-control/
+failures/
+attempts/

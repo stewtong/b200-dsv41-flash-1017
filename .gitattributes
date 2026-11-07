@@ -1,0 +1,2 @@
+# Preserve byte-pinned source fixtures, including their upstream line endings.
+tests/fixtures/* -text whitespace=cr-at-eol

@@ -1,0 +1,16 @@
+{
+  "calibration_count": 50,
+  "calibration_rule": "SHA256(dsv41-gsm8k-calibration-v1:+question) order from train, excluding scored test questions and duplicate calibration questions",
+  "files": {
+    "LICENSE": "86bbb73e855821d7c401912fd4bf82e34313e6e3b6fd6f909f2b6cc9e209a53b",
+    "calibration.json": "864f42bed690d3839fe619a098ef6cd1af8be57311587a2bac6764f9a2929ea6",
+    "test.jsonl": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+    "train.jsonl": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465"
+  },
+  "license": "MIT",
+  "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+  "scored_count": 1319,
+  "scorer": "gsm8k-final-number-v1",
+  "source": "openai/grade-school-math",
+  "source_readme": "https://github.com/openai/grade-school-math/tree/3101c7d5072418e28b9008a6636bde82a006892c"
+}

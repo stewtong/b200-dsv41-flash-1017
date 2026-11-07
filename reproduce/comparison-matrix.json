@@ -1,0 +1,150 @@
+{
+  "schema": "dsv41-b200-campaign/v3",
+  "status": "owner_approved_executor_binding_pending",
+  "engine": "vllm",
+  "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "model_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "topologies": [
+    "2xtp4",
+    "4xdep2",
+    "2xdep4",
+    "dep8"
+  ],
+  "input_tokens": [
+    8000,
+    16000,
+    32000,
+    64000,
+    128000,
+    256000,
+    400000,
+    512000,
+    1000000
+  ],
+  "node_concurrency": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128
+  ],
+  "cache_states": [
+    "cold"
+  ],
+  "core_output_tokens": 2048,
+  "repetitions": 3,
+  "core_expected_cells": 288,
+  "core_expected_repetitions": 864,
+  "core_expected_measured_requests": 27540,
+  "cell_statuses": [
+    "planned",
+    "running",
+    "passed",
+    "failed",
+    "admission_rejected",
+    "timed_out",
+    "invalid",
+    "unsupported",
+    "not_run_safety",
+    "not_run_budget"
+  ],
+  "concurrency_scope": "node-wide outstanding requests including queued requests; measured engine/rank distribution required",
+  "capacity_rule": "keep all planned rows; an unexecuted higher rung is not a measured failure",
+  "excludes_from_counts": [
+    "warm-prefix conditioning",
+    "disjoint kernel warmup",
+    "small profile qualification and known-answer checks"
+  ],
+  "anchor_only_topologies": [],
+  "core_sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "seed": "per request",
+    "thinking": false,
+    "min_tokens_equals_max_tokens": true,
+    "ignore_eos": true,
+    "record": "Native real acceptance counters/distribution when speculation is enabled; no synthetic acceptance."
+  },
+  "publication_repo": {
+    "url": "https://github.com/stewtong/b200-dsv41-flash-1017",
+    "visibility": "public",
+    "checkout": "repos/b200-dsv41-flash-1017",
+    "pushed": false
+  },
+  "scope_id": "context-concurrency-336-v1",
+  "output_tokens_by_input": {
+    "8000": 2048,
+    "16000": 2048,
+    "32000": 2048,
+    "64000": 2048,
+    "128000": 2048,
+    "256000": 2048,
+    "400000": 2048,
+    "512000": 2048,
+    "1000000": 512
+  },
+  "warm_prefix_panel": {
+    "input_tokens": [
+      128000,
+      256000,
+      512000,
+      1000000
+    ],
+    "node_concurrency": [
+      1,
+      8,
+      32
+    ],
+    "cache_states": [
+      "warm_prefix"
+    ],
+    "repetitions": 3,
+    "output_tokens_by_input": {
+      "128000": 2048,
+      "256000": 2048,
+      "512000": 2048,
+      "1000000": 512
+    },
+    "expected_cells": 48,
+    "expected_repetitions": 144,
+    "expected_measured_requests": 1968
+  },
+  "total_fixed_output_cells": 336,
+  "total_measured_repetitions": 1008,
+  "total_measured_requests": 29508,
+  "historical_scope": {
+    "matrix": "decisions/scope-336-20261103/previous-benchmark-matrix.json",
+    "core_cells": 704,
+    "fixed_output_cells": 1036,
+    "quality_cells": 704,
+    "disposition": "superseded by explicit owner scope reduction; preserve attempts and evidence, no automatic score credit"
+  },
+  "deferred_suites": [
+    "extra topology anchors",
+    "symmetric tuning campaign",
+    "output sensitivity",
+    "separate quality grid",
+    "GSM8K and coding/tools",
+    "API compatibility and reasoning effort",
+    "traffic/routing/SLO",
+    "continuous throughput",
+    "soaks and deliberate failure experiments",
+    "detailed causal attribution"
+  ],
+  "scope_rules": {
+    "profile": "one fixed qualified configuration per layout",
+    "output_rule": "output_tokens_by_input overrides core_output_tokens; 1M uses512",
+    "parser": "require explicit v3 support; reject unknown schema",
+    "attempt_history": "preserve old IDs and ceilings; bind migration before dispatch",
+    "active_packets": "unchanged until terminal acceptance and ownership reconciliation"
+  },
+  "profile_selection": {
+    "default": "existing qualified NoSpec starting profile per selected layout",
+    "speculation": "disabled for the initial fixed comparison",
+    "optimization_campaign_required": false,
+    "profile_hashes": "executor freezes exact installed config hashes before scored dispatch"
+  }
+}
