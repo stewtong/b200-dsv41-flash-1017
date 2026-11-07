@@ -1,0 +1,71 @@
+{
+  "candidate_capture_sizes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "common_instrumentation": "Identical installed --cudagraph-metrics and source-pinned, per-thread device-bound V2 worker observer in both arms; append-only native dispatch decisions, resolved capture settings, and native capture memory. Decisions do not independently prove GPU completion; overhead is common and remains a limitation.",
+  "declared_at": "2026-11-07T12:05:02.180705+00:00",
+  "experiment": "graph",
+  "graph_primary_metric": "throughput",
+  "graph_primary_workloads": [
+    [
+      8000,
+      8
+    ],
+    [
+      64000,
+      8
+    ]
+  ],
+  "layout": "2xtp4",
+  "limits": {
+    "all_requests": 312,
+    "max_attempts_per_repetition": 2,
+    "max_node_hours": 12,
+    "qualification_requests": 96
+  },
+  "matrix_sha256": "587d2e4fc914f1731f09fec44e5b5a4bcbedecfab6e0932c81ef30462a204954",
+  "noise_rule": "guardrail ratios straddling five percent are inconclusive; all beyond the guardrail reject",
+  "pass_order": [
+    {
+      "arm": "baseline",
+      "repetition": 0
+    },
+    {
+      "arm": "candidate",
+      "repetition": 0
+    },
+    {
+      "arm": "candidate",
+      "repetition": 1
+    },
+    {
+      "arm": "baseline",
+      "repetition": 1
+    },
+    {
+      "arm": "baseline",
+      "repetition": 2
+    },
+    {
+      "arm": "candidate",
+      "repetition": 2
+    }
+  ],
+  "primary_formula": "verified output tokens across valid measured requests divided by measured burst makespan, median of three matched repetition summaries",
+  "primary_pass": "at both concurrency-eight lengths candidate >= 1.10 baseline, each paired repetition improves and candidate minimum exceeds baseline maximum",
+  "profile_sha256": {
+    "baseline": "86fbcf82191a63fbbb711935dd0a0a56249a7eb8d7234c6017fadf92875a1f0b",
+    "candidate": "12eaacc56249c1a5c7a969449b3d9844031957b843e64b4cd0f5782b9c64c0d6"
+  },
+  "schema": "tuning-adaptation-comparison-contract/v1",
+  "scope_id": "tuning-adaptation-v2",
+  "sealed_plan_sha256": "b958ee7c145fe9fdaf06a58eb7714522ffa73fcbbf09ba1a64cbfaa0049ff03f",
+  "secondary": "at each workload TTFT, decode TPOT and end-to-end latency regress no more than five percent; no new errors"
+}

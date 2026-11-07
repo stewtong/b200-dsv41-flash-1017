@@ -5,6 +5,8 @@ The completed [fixed-configuration comparison](results/fixed-comparison/README.m
 
 The [charts](results/fixed-comparison/report/README.md) and sanitized tables describe finite bursts across context length and concurrent demand. They include repetition spread and achieved cache reuse. Backend differences, cache conditions and temporal drift limit comparisons. Sustained capacity, broad task quality and production reliability require separate validation.
 
+The completed [tuning screens](results/tuning-adaptation/README.md) add 12 matched comparisons, 72 measured repetitions and 324 measured requests. Static DSpark K5 is inconclusive under the declared latency guardrail; the tested graph-capture and prefill-budget candidates were rejected under their declared criteria. The continuing broader performance search is excluded from this release.
+
 The [comparison contract](docs/comparison-contract.md) defines the workload and timing boundaries. The [configuration guide](docs/frozen-configurations.md) records runtime and model pins, GPU grouping, backend choices and CPU placement.
 
 Requires Python 3.12 or later for the harness. Local fixtures bind ephemeral loopback ports. Use fresh output directories outside the checkout:
@@ -30,6 +32,7 @@ The checked-in harness is a portable source snapshot. Historical measurements ca
 ```sh
 python3 -B reproduce/verify_result_package.py results/fixed-comparison
 python3 -B reproduce/verify_result_package.py results/context-1m-output2048
+python3 -B reproduce/verify_result_package.py results/tuning-adaptation
 ```
 
 These checks validate public file integrity and available table arithmetic. Raw responses, failure logs, interrupted attempts and private infrastructure records remain in separate evidence storage. Public provenance identifies original source versions by their content hashes.

@@ -1,0 +1,106 @@
+{
+  "schema": "tuning-adaptation-comparison-contract/v1",
+  "scope_id": "tuning-adaptation-v2",
+  "declared_at": "2026-11-07T05:49:46.864929+00:00",
+  "sealed_plan_sha256": "b958ee7c145fe9fdaf06a58eb7714522ffa73fcbbf09ba1a64cbfaa0049ff03f",
+  "matrix_sha256": "19bbba4758014d820b71286df3d94ffec902892e6326f3d0603f7244a1e5d2d1",
+  "workloads": [
+    {
+      "input_tokens": 8000,
+      "node_concurrency": 1,
+      "output_tokens": 2048,
+      "cache": "cold"
+    },
+    {
+      "input_tokens": 8000,
+      "node_concurrency": 8,
+      "output_tokens": 2048,
+      "cache": "cold"
+    },
+    {
+      "input_tokens": 64000,
+      "node_concurrency": 1,
+      "output_tokens": 2048,
+      "cache": "cold"
+    },
+    {
+      "input_tokens": 64000,
+      "node_concurrency": 8,
+      "output_tokens": 2048,
+      "cache": "cold"
+    }
+  ],
+  "arms": [
+    "nospec",
+    "dspark-k5-static-real-block"
+  ],
+  "pass_order": [
+    {
+      "arm": "nospec",
+      "repetition": 0
+    },
+    {
+      "arm": "dspark",
+      "repetition": 0
+    },
+    {
+      "arm": "dspark",
+      "repetition": 1
+    },
+    {
+      "arm": "nospec",
+      "repetition": 1
+    },
+    {
+      "arm": "nospec",
+      "repetition": 2
+    },
+    {
+      "arm": "dspark",
+      "repetition": 2
+    }
+  ],
+  "matched_inputs": "same immutable task population per workload and repetition in both arms; prove fresh reset or cache-busting",
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "thinking": false,
+    "min_tokens": 2048,
+    "max_tokens": 2048,
+    "ignore_eos": true
+  },
+  "primary": {
+    "per_request_formula": "(last_visible_event_offset_ns - first_visible_event_offset_ns) / 1000000000 / (verified_completion_tokens - 1)",
+    "unit": "seconds_per_output_token",
+    "repetition_summary": "median across all valid requests in that repetition",
+    "arm_summary": "median of three matched repetition medians",
+    "pass": "at concurrency 1 for both input lengths, candidate median <= 0.90 * baseline median; all three paired candidate medians strictly lower; candidate repetition maximum strictly below baseline repetition minimum",
+    "limits": "visible chunks can contain multiple tokens; this is a stream-window proxy, not exact token interarrival latency"
+  },
+  "secondary": {
+    "per_request": "first visible output latency and total request duration",
+    "repetition_summary": "median across valid requests within each repetition",
+    "arm_summary": "median across three repetition summaries",
+    "throughput": "verified output tokens across valid measured requests / measured burst makespan, summarized by median across three repetitions",
+    "pass": "at each workload candidate median first-token and end-to-end latency <= 1.05 * baseline and candidate median aggregate throughput >= 0.95 * baseline; no new errors",
+    "ambiguous_or_insufficient": "inconclusive, never a favorable assumed pass",
+    "noise_rule": "At each workload, if the three paired repetition ratios straddle the 5% guardrail the result is inconclusive; all three beyond the guardrail is a rejection."
+  },
+  "quality": "separate frozen qualification-contract.json; qualification and warmup excluded from measurements",
+  "limits": {
+    "qualification_requests": 96,
+    "all_requests": 312,
+    "measured_requests": 108,
+    "measured_repetitions": 24,
+    "max_node_hours": 12,
+    "request_timeout_seconds": 1800,
+    "cleanup_seconds": 120,
+    "max_attempts_per_repetition": 2
+  },
+  "experiment": "dspark",
+  "layout": "2xtp4",
+  "profile_sha256": {
+    "baseline": "d020daff21fc85db044138972ca3d4b0d61eddeb6bcbc81ca41b22ec726fe8ed",
+    "candidate": "a8208c5c6393bf5dba9649021f3798ba1780c43d316e2556859d8c29a88ce73c"
+  }
+}
