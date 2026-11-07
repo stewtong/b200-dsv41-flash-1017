@@ -12,6 +12,8 @@ python3 -B reproduce/verify_publication.py --staged
 git diff --cached --check
 ```
 
-The publication verifier reads the staged bytes, checks the allowed paths and rejects common credential forms, private connection details and non-English publication text. It never prints matched credential values. This check complements review; it cannot establish that every possible sensitive value has been removed. Git ignore rules do not protect files already staged or tracked.
+The publication verifier reads the staged bytes, checks the allowed paths and rejects common credential forms, private connection details and non-English publication text. Results must appear in the explicit `configs/publication-results.json` inventory. Each PNG must also match its reviewed SHA-256, binding its pixels, metadata and all other bytes. Adding a result or changing a chart requires an explicit inventory update and review.
+
+The verifier uses the inventory from the Git index, so an unstaged approval cannot authorize a staged file. Every indexed result is checked even when the change only updates the inventory. The verifier never prints matched credential values. This check complements review; it cannot establish that every possible sensitive value has been removed. Git ignore rules do not protect files already staged or tracked.
 
 Raw evidence remains necessary for scientific acceptance and is retained privately. Public checksums identify the selected source and result bytes. Public table verification establishes arithmetic and coverage; replaying original raw-stream and lifecycle audits requires the separately retained original evidence and its matching producer tools.

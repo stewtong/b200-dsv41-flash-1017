@@ -1,7 +1,8 @@
 """Check an explicit publication file list or the exact staged Git blobs."""
 import argparse
+import hashlib
 import json
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 import re
 import subprocess
 
@@ -25,9 +26,33 @@ PRIVATE_PATTERNS = [
     re.compile(rb'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'),
 ]
 CJK = re.compile('[\u3000-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff00-\uffef]')
+INVENTORY_PATH = 'configs/publication-results.json'
 
 
-def check(name, data):
+def read_inventory(data):
+    inventory = json.loads(data)
+    paths = inventory['paths']
+    images = inventory['reviewed_png_sha256']
+    if (inventory['schema'] != 'publication-result-inventory/v1' or
+            not isinstance(paths, list) or not paths or
+            any(not isinstance(name, str) for name in paths) or
+            paths != sorted(set(paths)) or not isinstance(images, dict)):
+        raise ValueError('invalid publication result inventory')
+    for name in paths:
+        p = PurePosixPath(name)
+        if (p.as_posix() != name or p.is_absolute() or '..' in p.parts or
+                len(p.parts) < 3 or p.parts[0] != 'results' or p.parts[1] not in RESULTS or
+                set(p.parts) & PRIVATE_PARTS or
+                (p.suffix not in SUFFIXES and p.name != 'SHA256SUMS')):
+            raise ValueError('invalid publication result path')
+    if (set(images) != {name for name in paths if name.endswith('.png')} or
+            any(not isinstance(value, str) or not re.fullmatch('[0-9a-f]{64}', value)
+                for value in images.values())):
+        raise ValueError('reviewed PNG inventory differs from result paths')
+    return inventory
+
+
+def check(name, data, inventory=None):
     p = PurePosixPath(name)
     issues = []
     if p.is_absolute() or '..' in p.parts or set(p.parts) & PRIVATE_PARTS:
@@ -41,10 +66,20 @@ def check(name, data):
             issues.append('file type is not approved')
     if p.name.startswith('.env') or p.suffix in {'.key', '.pem', '.log', '.jsonl'}:
         issues.append('runtime or credential artifact')
+    if p.parts and p.parts[0] == 'results':
+        if inventory is None:
+            inventory = read_inventory((Path(__file__).resolve().parents[1] / INVENTORY_PATH).read_bytes())
+        if name not in inventory['paths']:
+            issues.append('result path is absent from reviewed publication inventory')
     if p.suffix == '.png':
         if not data.startswith(b'\x89PNG\r\n\x1a\n'):
             issues.append('malformed PNG')
-        return issues
+        # Bind all bytes, including text chunks and compressed metadata, to the
+        # reviewed chart. Signature-only checks cannot protect binary content.
+        if (inventory is None or
+                inventory['reviewed_png_sha256'].get(name) != hashlib.sha256(data).hexdigest()):
+            issues.append('PNG bytes differ from reviewed publication inventory')
+        return sorted(set(issues))
     try:
         text = data.decode('utf-8')
     except UnicodeDecodeError:
@@ -70,7 +105,9 @@ def check(name, data):
 
 def staged_blobs():
     names = subprocess.check_output(['git', 'diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z']).split(b'\0')
-    for raw in names:
+    # Recheck every indexed result even when only its approval inventory changed.
+    names += subprocess.check_output(['git', 'ls-files', '-z', '--', 'results/']).split(b'\0')
+    for raw in sorted(set(names)):
         if not raw:
             continue
         name = raw.decode('utf-8')
@@ -84,11 +121,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--staged', action='store_true', required=True)
     parser.parse_args()
+    # The approval inventory and payloads must come from the same Git index.
+    # An unstaged working-tree edit cannot authorize a staged artifact.
+    inventory = read_inventory(subprocess.check_output(['git', 'show', ':' + INVENTORY_PATH]))
     checked = 0
     failures = []
     for name, data in staged_blobs():
         checked += 1
-        for issue in check(name, data):
+        for issue in check(name, data, inventory):
             failures.append({'path': name, 'issue': issue})
     print(json.dumps({'checked_files': checked, 'status': 'failed' if failures else 'passed', 'findings': failures}))
     return bool(failures)
