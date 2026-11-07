@@ -1,0 +1,11 @@
+{
+  "scope_id": "context-1m-output2048-supplement-v1",
+  "observed_at": "2026-11-07T03:19:55.211433+00:00",
+  "original_accepted_cells": 336,
+  "original_required_cells": 336,
+  "supplement_required_cells": 44,
+  "supplement_accepted_cells": 44,
+  "supplement_repetitions": 132,
+  "supplement_requests": 3552,
+  "supplement_complete": true
+}

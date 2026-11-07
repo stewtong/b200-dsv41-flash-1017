@@ -1,2 +1,4 @@
 # Preserve byte-pinned source fixtures, including their upstream line endings.
 tests/fixtures/* -text whitespace=cr-at-eol
+# Sanitized CSV checksums cover the original CRLF bytes.
+results/**/*.csv -text whitespace=cr-at-eol

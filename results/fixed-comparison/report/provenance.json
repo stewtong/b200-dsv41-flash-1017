@@ -1,0 +1,59 @@
+{
+  "figures": [
+    {
+      "cache": "cold",
+      "complete_cells_in_cache": 288,
+      "metric": "burst_output_tokens_per_second",
+      "name": "cold-burst-rate",
+      "note": "Median and range of three repetition burst rates."
+    },
+    {
+      "cache": "cold",
+      "complete_cells_in_cache": 288,
+      "metric": "first_output_seconds_p50",
+      "name": "cold-first-output",
+      "note": "Median and range of three per-repetition request medians."
+    },
+    {
+      "cache": "cold",
+      "complete_cells_in_cache": 288,
+      "metric": "completion_seconds_p50",
+      "name": "cold-completion-latency",
+      "note": "Median and range of three per-repetition request medians."
+    },
+    {
+      "cache": "warm_prefix",
+      "complete_cells_in_cache": 48,
+      "metric": "burst_output_tokens_per_second",
+      "name": "warm-burst-rate",
+      "note": "Median and range of three repetition burst rates."
+    },
+    {
+      "cache": "warm_prefix",
+      "complete_cells_in_cache": 48,
+      "metric": "achieved_cache_hit_fraction",
+      "name": "warm-achieved-cache-hit",
+      "note": "Median and range of three repetition native counter fractions."
+    }
+  ],
+  "generator_sha256": "6afaaf0ebe0032b7ed56dce2c5963ae4834eefb5b751e8ccd8a9fb0ad50bf98d",
+  "matplotlib_version": "3.10.7",
+  "new_measurement_acceptance": false,
+  "source_files_sha256": {
+    "SHA256SUMS": "d91447d11ad74cd60cd909cdfd10fe2cef76c7a710ce38ac6a30d55101f876c9",
+    "cells.csv": "6d8304bb26df2d70e5d38637de294358a30623086627a22cf9be01ca031307e4",
+    "repetitions.csv": "a66d9dd5d65709d266c752805be6c193122a6a62d95f4c967af3fe367d9896dc",
+    "requests.csv": "b6b7d5a96c7341d7ddc3dea14e7d087c1af844a89024481e97b938841e9e329f",
+    "summary.json": "4b11e83fcf7023bddf7b72f1fdddd7b4e243185ea3b04c39768119ee82f15b14"
+  },
+  "status": "descriptive_report_rendered",
+  "table_verification": {
+    "accepted_cells": 336,
+    "complete": true,
+    "observed_repetitions": 1008,
+    "requests": 29508,
+    "required_cells": 336,
+    "scope": "Timing/usage arithmetic and coverage only; raw streams, profile qualification, placement and telemetry require the original capture verifiers.",
+    "status": "sanitized_timing_usage_metrics_recomputed"
+  }
+}

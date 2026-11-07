@@ -1,7 +1,11 @@
 <!-- register: repository guide | reader: benchmark reproducer | consumed: setup and evidence check -->
 # DeepSeek V4.1 Flash 1017 on eight B200 GPUs
 
-This harness compares four fixed serving configurations across context length and concurrent demand. The [comparison contract](docs/comparison-contract.md) defines the 336-cell workload, timing boundaries and claim limits. The [configuration guide](docs/frozen-configurations.md) records runtime and model pins, GPU grouping, backend choices and CPU placement.
+The completed [fixed-configuration comparison](results/fixed-comparison/README.md) contains 336 accepted cells, 1,008 repetitions and 29,508 measured requests. The separate [1M-input supplement](results/context-1m-output2048/report.md) contains 44 accepted cells, 132 repetitions and 3,552 measured requests with 2,048 output tokens. The original 1M-input panel uses 512 output tokens; keep those panels separate.
+
+The [charts](results/fixed-comparison/report/README.md) and sanitized tables describe finite bursts across context length and concurrent demand. They include repetition spread and achieved cache reuse. Backend differences, cache conditions and temporal drift limit comparisons. Sustained capacity, broad task quality and production reliability require separate validation.
+
+The [comparison contract](docs/comparison-contract.md) defines the workload and timing boundaries. The [configuration guide](docs/frozen-configurations.md) records runtime and model pins, GPU grouping, backend choices and CPU placement.
 
 Requires Python 3.12 or later for the harness. Local fixtures bind ephemeral loopback ports. Use fresh output directories outside the checkout:
 
@@ -20,3 +24,12 @@ Fixtures exercise deterministic streaming, persistence, interruption and recover
 The checked-in harness is a portable source snapshot. Historical measurements can use different immutable producer versions. Result provenance must identify those original versions; running a newer verifier does not replace an original-source audit.
 
 [Reproduction notes](docs/reproduction-notes.md) describe ownership, evidence and timing precautions. The [publication policy](docs/publication-policy.md) keeps raw captures and operational failure artifacts outside Git while preserving material scientific outcomes.
+
+## Verify the completed result exports
+
+```sh
+python3 -B reproduce/verify_result_package.py results/fixed-comparison
+python3 -B reproduce/verify_result_package.py results/context-1m-output2048
+```
+
+These checks validate public file integrity and available table arithmetic. Raw responses, failure logs, interrupted attempts and private infrastructure records remain in separate evidence storage. Public provenance identifies original source versions by their content hashes.

@@ -1,0 +1,13 @@
+{
+  "scope_id": "context-1m-output2048-supplement-v1",
+  "plan_sha256": "f6910528dfe8f5bba937cff24ab71518a0bfc865b5e1b3f178afe15811a2e18a",
+  "matrix_sha256": "209782e4b32f1bcf2e574fd70e26c815758a2acd6e133d01303a6c46949281e9",
+  "bound_manifest_sha256": "2df80bce68f6915f860ebcc645a5bac764b714ee9eb609e39a5f2089f3cb77c8",
+  "original_baseline_sha256": "fee703a7c54f4adcdb71641ae1eeda2fdab5d6e214e66c95d7241c94f475a765",
+  "frozen_catalog_sha256": "cf291a0da4eebaf5c22436f403603e9786f6d63eca3ead81a44e413ca956e7c9",
+  "disposition_sha256": "b8f05e093590b14e15c41be213825c9e180d84a58f3c000f67604f1cfe8de2b1",
+  "independent_measurement_audit_sha256": "22d2a87356d72cf367db74c948b25e9e5425d06184ce529ea1a0aab4e3e79d55",
+  "independent_lifecycle_audit_sha256": "e35dd499e12608cbca5d04f58867510e528624d621e12bb536a18062353042f1",
+  "sanitized_comparison_sha256": "7204cfa7c018b41cbb98a15e40edac067836f3e72f1a10b04c850cf0d27e83f1",
+  "scope": "Evidence fingerprints and descriptive tables; original raw objects remain in private retention."
+}
