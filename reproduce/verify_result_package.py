@@ -3,6 +3,7 @@ import argparse
 import csv
 import json
 import math
+import importlib.util
 from pathlib import Path
 import statistics
 
@@ -113,6 +114,16 @@ def verify(root):
         return supplement(root)
     if root.name == 'tuning-adaptation':
         return tuning(root)
+    if root.name == 'finalist-validation':
+        # Result manifests prove file integrity, not that supplied Python is trusted.
+        # Load the installed repository implementation, then point it at the data.
+        module_path = Path(__file__).resolve().parents[1] / 'results/finalist-validation/reproduce/replay_tables.py'
+        spec = importlib.util.spec_from_file_location('finalist_validation_replay', module_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.ROOT = root
+        module.DATA = root / 'data'
+        return module.main()
     raise ValueError('unknown result package')
 
 

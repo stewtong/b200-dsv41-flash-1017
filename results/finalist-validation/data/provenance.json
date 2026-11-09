@@ -1,0 +1,12 @@
+{
+  "schema": "finalist-validation-public-provenance/v1",
+  "scope": "Prompt-free tables derived from the accepted private retained records; not raw-oracle or GPU replication.",
+  "retained_archive_sha256": "2fea0f8c0fba42bbfa4692c410d27b5b7d471fa47f74c3c4d60bbc4e7a5f23cc",
+  "natural_analysis_sha256": "8f0efded6d6805aa3d844a45ff3beeb520aa4cf9104508bb941f0cab7552e753",
+  "paired_quality_analysis_sha256": "330935c805ae9ba11b5bd705d7d5cf5521c7be9e6e6897b440f05058ccfeefa3",
+  "code_score_sha256": {
+    "nospec": "a54695a206fa81a51824da0c0c90065ed606016345a6fcdb98a48beb924414d1",
+    "k5": "e4c98809a625c68296f5532651a3fc7fb094adce5cde6a61bca63d1e6f00684c"
+  },
+  "projection": "Capture labels replace operational run names in load-windows.csv. Timing, token counts, task IDs, scores and derived metrics are unchanged."
+}

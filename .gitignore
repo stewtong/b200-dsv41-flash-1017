@@ -17,6 +17,7 @@
 !/results/fixed-comparison/
 !/results/context-1m-output2048/
 !/results/tuning-adaptation/
+!/results/finalist-validation/
 
 # Runtime captures, incident evidence, archives and credentials.
 __pycache__/

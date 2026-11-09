@@ -8,7 +8,7 @@ import subprocess
 
 
 ROOT_FILES = {'.gitignore', '.gitattributes', 'README.md'}
-RESULTS = {'fixed-comparison', 'context-1m-output2048', 'tuning-adaptation'}
+RESULTS = {'fixed-comparison', 'context-1m-output2048', 'tuning-adaptation', 'finalist-validation'}
 SUFFIXES = {'.py', '.sh', '.md', '.json', '.csv', '.svg', '.png', '.txt', '.lock'}
 PRIVATE_PARTS = {'raw', 'evidence', 'job-monitor', 'campaign-control', 'failures', 'attempts', '__pycache__'}
 SECRET_PATTERNS = [
