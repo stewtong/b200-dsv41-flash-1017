@@ -1,18 +1,27 @@
 <!-- register: repository guide | reader: inference engineer evaluating B200 serving layouts, then a reproducer | consumed: top-down read, first screen decides whether to go deeper -->
 # DeepSeek V4.1 Flash 1017 on eight NVIDIA B200 GPUs
 
-This repository measures how to serve [DeepSeek-V4.1-Flash-1017](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017) with vLLM on one node of eight NVIDIA B200 GPUs. It publishes the results, the sanitized data tables behind them, and the harness used to capture and verify them.
+Two four-GPU tensor-parallel replicas (`2xtp4`) gave the highest single-request output rates in the tested cold workloads from 8K to 512K input. Data- and expert-parallel (DEP) configurations delivered higher total throughput for larger cold batches. Cache reuse changed some rankings.
 
-The work asks two questions:
+Static DSpark speculative decoding with five draft tokens per step (K5) improved selected throughput and completion-time results. Multi-turn tests covered K5 on `2xtp4` and `dep8`. Quality scores were similar on a selected `2xtp4` task panel; broader quality equivalence remains unverified.
 
-1. **How should the eight GPUs be split?** Four fixed configurations were compared: two tensor-parallel engines of four GPUs each (`2xtp4`), and three data- plus expert-parallel (DEP) layouts: four engines of two GPUs (`4xdep2`), two engines of four GPUs (`2xdep4`), and one engine across all eight (`dep8`). Each was measured from 8,000 to 1,000,000 input tokens and from 1 to 128 outstanding requests.
-2. **Does speculative decoding help `2xtp4`?** Static DSpark speculative decoding with five draft tokens per step (K5) was compared against the same recipe with speculation disabled (NoSpec), on throughput, latency under load and answer quality. DSpark integration in vLLM is tracked in [vLLM issue 46910](https://github.com/vllm-project/vllm/issues/46910).
+The studies cover inputs up to one million tokens. They do not establish maximum sustainable capacity or production reliability.
+
+This repository publishes results for [DeepSeek-V4.1-Flash-1017](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017) served with vLLM on one eight-B200 node, with sanitized data tables and the capture and verification harness. NoSpec means speculation disabled. DSpark integration in vLLM is tracked in [vLLM issue 46910](https://github.com/vllm-project/vllm/issues/46910).
+
+| Study | Scope | Accepted data |
+| --- | --- | --- |
+| [Layout comparison](results/fixed-comparison/README.md) | Cold: 4 layouts × 9 input lengths × 8 request counts. Warm prefix: 4 layouts × 4 input lengths × 3 request counts | 336 cells (288 cold, 48 warm), 1,008 repetitions, 29,508 requests |
+| [1M-input supplement](results/context-1m-output2048/report.md) | 1M input with 2,048 output tokens; the main comparison used 512 at 1M | 44 cells, 132 repetitions, 3,552 requests |
+| [Tuning screens](results/tuning-adaptation/README.md) | DSpark K5, graph capture and prefill budget against matched baselines, fixed 2,048-token output | 12 comparisons, 72 repetitions, 324 requests |
+| [K5 validation](results/finalist-validation/README.md) | K5 against NoSpec on `2xtp4`: natural-stop bursts, open-loop load, quality panel | Captured November 8 to 9, 2026 |
+| [Multi-turn load](results/sustained-speculation-layouts/report.md) | `2xtp4` and `dep8`, K5 on/off; broad input-length ranges, 400 forced output tokens | 39 core windows and one diagnostic; acceptance and finite-window latency; capacity unqualified |
 
 Most measurements are bursts: N requests dispatched together and not replaced as they finish, so the N **outstanding requests** include queued as well as running work. **Burst output rate** is valid output tokens divided by the time from first dispatch to last completion. **First output** is the time from dispatch to the first nonempty streamed output chunk. **Cold** requests use cache-busted prompts; **warm-prefix** requests reuse a cached prompt prefix. Measurements were captured in November 2026 on one node and compare whole configurations, with the boundaries listed under [limits](#limits).
 
 ## Results
 
-**`2xtp4` gives the highest single-request output rate; the DEP layouts deliver more total throughput once enough requests are in flight.** With one cold request, `2xtp4` generated 1.43 to 1.58 times the output rate of the next-best layout at every input length from 8K to 512K (258 against 153 to 163 tokens/s at 8K). With many requests outstanding, the DEP layouts lead, and the request count at which `2xtp4` stops leading falls as input grows:
+**In the cold 8K to 512K bursts, `2xtp4` led at one request and DEP layouts led at larger batches.** With one cold request, `2xtp4` generated 1.43 to 1.58 times the output rate of the next-best layout at every input length from 8K to 512K (258 against 153 to 163 tokens/s at 8K). With many requests outstanding, the DEP layouts lead, and the request count at which `2xtp4` stops leading falls as input grows:
 
 | Input tokens | Highest tested request count where `2xtp4` led | Burst output rate at 128 outstanding requests: `2xtp4` / DEP layouts |
 | ---: | ---: | --- |
@@ -42,11 +51,26 @@ Tested request counts were 1, 2, 4, 8, 16, 32, 64 and 128. Cold requests generat
 | Same load: correct answers completed within one second of dispatch | 1.087× and 1.092× (262 against 241 and 240) |
 | Selected quality panel, 200 tasks × 2 seeds, thinking disabled | 71.25% K5 against 71.5% NoSpec; paired task-cluster bootstrap interval −2.75 to +2.00 percentage points |
 
-Natural-stop answers were short: 3 to 16 tokens per single request and 29 to 103 tokens per eight-request group, so those ratios reflect prefill, first output and cache history more than sustained decoding, and they count tokens from incorrect answers. The one-second limit is one of four predeclared limits; at 5, 15 and 60 seconds the ratio was 1.008×. The load panel cycled ten underlying questions, and K5 completed all 360 arrivals per window against NoSpec's 357, so the unrestricted rate is capped by the offered load. The [validation report](results/finalist-validation/report.md) and [tuning report](results/tuning-adaptation/README.md) give the full tables. The same tuning screens rejected one CUDA graph capture-size configuration on `2xtp4` and a 16,384-token prefill budget on `dep8`; the budget improved single-request first output by 6.0% at 128K and 21.6% at 256K but missed the predeclared 10% requirement at both lengths.
+Natural-stop answers were short: 3 to 16 tokens per single request and 29 to 103 tokens per eight-request group. Those ratios reflect prefill, first output and cache history more than sustained decoding, and they count tokens from incorrect answers.
 
-### K5 acceptance stayed above 2.7 across the sustained-load trials
+The one-second limit is one of four predeclared limits; at 5, 15 and 60 seconds the ratio was 1.008×. The load panel cycled ten underlying questions, and K5 completed all 360 arrivals per window against NoSpec's 357, so the unrestricted rate is capped by the offered load. See the [validation report](results/finalist-validation/report.md) for all limits and repetitions.
 
-The [multi-turn load report](results/sustained-speculation-layouts/report.md) covers 39 core windows across 2xTP4 and DEP8, with K5 on and off. K5 acceptance ranged from 2.707 to 2.864 in W1 and 2.964 to 3.126 in W2. Actual prompts span 45K to 118K and 219K to 445K tokens, respectively; every turn requests 400 output tokens. Four rates failed their drain, and a cache-confounded client control leaves maximum sustainable rates unqualified. NVIDIA's [Dynamo recipe](https://docs.nvidia.com/dynamo/dev/recipes/deepseek-v4-1-flash) publishes 990.57 output tok/s/GPU for 64K/400 on 2xTP4 with K3 at concurrency 168; different prompt lengths, backends/KV, scheduling, routing, revisions and demand protocols prevent a direct speedup ratio.
+The [tuning screens](results/tuning-adaptation/README.md) also rejected one CUDA graph capture-size configuration on `2xtp4` and a 16,384-token prefill budget on `dep8`. The budget improved single-request first output by 6.0% at 128K and 21.6% at 256K but missed the predeclared requirement of at least 10% at both lengths.
+
+### K5 reduced completion p95 in selected multi-turn windows on both layouts
+
+The [multi-turn load study](results/sustained-speculation-layouts/report.md) tested `2xtp4` and `dep8`, each with K5 on and off, across 39 core windows. W1 has eight sequential turns with actual prepared prompts from 45,075 to 117,842 tokens; W2 has four turns spanning 219,003 to 445,038 tokens. Every turn requests exactly 400 output tokens with thinking disabled and the end-of-sequence token ignored. Frozen transcripts determine later prompts; generated answers cannot change the workload.
+
+At the selected loads below, all measured turns completed successfully. Completion p95 is the 95th percentile of dispatch-to-terminal times for successful measured turns, including those finishing during drain after the 360-second arrival window. Offered load is new conversations per second. Each W2 range spans the original window and its repeat; W1 uses the original windows, which share the same arrival trace. Turns within each conversation are correlated, and the two-window ranges are not confidence intervals.
+
+| Configuration | W1 at 0.45 conversations/s: completion p95 | W2 at 0.32 conversations/s: completion p95 |
+| --- | ---: | ---: |
+| `2xtp4`, K5 | 4.17 s | 17.56 to 17.75 s |
+| `2xtp4`, NoSpec | 10.51 s | 87.43 to 107.77 s |
+| `dep8`, K5 | 5.36 s | 15.56 to 19.61 s |
+| `dep8`, NoSpec | 8.39 s | 27.10 to 34.04 s |
+
+K5 acceptance length ranged from 2.707 to 2.864 in W1 and 2.964 to 3.126 in W2. It is `1 + sum(accepted-token deltas) / sum(draft-step deltas)`, measured in tokens advanced per draft step, not a speedup ratio. Four higher-load windows failed the 120-second drain limit. The split-client control had a different effective prefix-cache hit fraction from the single-client run, leaving client fidelity and maximum sustainable rates unqualified. The report retains all windows, failures and external comparison limits.
 
 ## What was measured
 
@@ -59,25 +83,20 @@ The [multi-turn load report](results/sustained-speculation-layouts/report.md) co
 
 All layouts and both K5 arms used the pinned image `vllm/vllm-openai@sha256:aeb580d55ee3dcccd7b5c78d7871326f367bee5cfd8ca8e411c253d7983a0046` (vLLM `0.33.0rc1.dev447+ge0d00e4b8`) and model revision `1bae0e1088993b9b82de08f59de5be5a34e42170`, with a 1,048,576-token sequence limit and prefix caching. A pinned router placed requests across engines with retries disabled. The K5 study records driver 580.173.02, CUDA 13.0, Torch 2.14.0, NCCL 2.30.7 and two Intel Xeon Platinum 8580 CPUs. The [configuration guide](docs/frozen-configurations.md) has the full pins, CPU offload settings and CPU placement.
 
-| Study | Scope | Accepted data |
-| --- | --- | --- |
-| [Layout comparison](results/fixed-comparison/README.md) | Cold: 4 layouts × 9 input lengths × 8 request counts. Warm prefix: 4 layouts × 4 input lengths × 3 request counts | 336 cells (288 cold, 48 warm), 1,008 repetitions, 29,508 requests |
-| [1M-input supplement](results/context-1m-output2048/report.md) | 1M input with 2,048 output tokens; the main comparison used 512 at 1M | 44 cells, 132 repetitions, 3,552 requests |
-| [Tuning screens](results/tuning-adaptation/README.md) | DSpark K5, graph capture and prefill budget against matched baselines, fixed 2,048-token output | 12 comparisons, 72 repetitions, 324 requests |
-| [K5 validation](results/finalist-validation/README.md) | K5 against NoSpec on `2xtp4`: natural-stop bursts, open-loop load, quality panel | Captured November 8 to 9, 2026 |
-| [Sustained-load follow-on](results/sustained-speculation-layouts/report.md) | 2xTP4/DEP8, K5 on/off, broad W1/W2 multi-turn inputs, 400 forced output tokens | 39 core windows and one diagnostic; acceptance and finite-window latency; capacity unqualified |
-
 Measured requests were streamed Chat Completions with temperature and top-p at 1.0. The layout comparison disabled thinking; the K5 quality and load panels include separate thinking-disabled and thinking-enabled profiles. The [comparison contract](docs/comparison-contract.md) defines every metric and timing boundary.
 
 ## Limits
 
-- Each burst is finite and is not replenished. The results do not establish a maximum sustainable request rate or production reliability.
+- **Burst studies:** each burst is finite and is not replenished. Outstanding requests include queued work; 128 outstanding 1M-input requests do not establish capacity for 128 active 1M-token sequences.
 - Layouts differ in attention backend and KV format as well as GPU grouping, and K5 changes the decoding path as a whole recipe; results belong to the whole configuration and are not attributed to one setting.
 - Cold prompts used cache-busted namespaces; a cache flush was not verified. Layouts ran one after another, so drift over time is not ruled out. Some rankings fall inside the range across three repetitions.
-- K5 natural-stop ratios come from five prompt blocks that share one engine history, with short answers and repeated cache reuse.
-- The K5 load study covers two 60-second windows per rate over ten repeated questions. Eleven of twelve load windows have no queue sample during drain, and the K5 load windows were analysed from recovered evidence after a failed evidence seal and were not replayed.
-- K5 quality was measured on a selected 200-task panel and does not establish general quality equivalence.
+- **Natural-stop K5 validation:** ratios come from five prompt blocks that share one engine history, with short answers and repeated cache reuse.
+- **Short K5 load validation:** two 60-second windows per rate cover ten repeated questions. Eleven of twelve load windows have no queue sample during drain. The K5 load windows were analysed from recovered evidence after a failed evidence seal and were not replayed.
+- **Multi-turn load study:** the cache-confounded client control leaves maximum sustainable rates unqualified, including the 30- and 60-second p95 completion tiers. An optional final drift window was omitted. These fixed-transcript, forced-output tests do not measure correct-task throughput.
+- **Quality panel:** K5 quality was measured on 200 selected tasks on `2xtp4`. General quality equivalence and `dep8` K5 quality remain unverified.
 - All data comes from one node. Fresh-node replication was not performed, and host CPU and memory details are not part of the layout export.
+
+The studies do not establish production reliability.
 
 ## Repository contents
 
@@ -98,6 +117,7 @@ python3 -B reproduce/verify_result_package.py results/fixed-comparison
 python3 -B reproduce/verify_result_package.py results/context-1m-output2048
 python3 -B reproduce/verify_result_package.py results/tuning-adaptation
 python3 -B reproduce/verify_result_package.py results/finalist-validation
+python3 -B reproduce/verify_result_package.py results/sustained-speculation-layouts
 ```
 
 They do not rerun inference or rescore model answers. Raw responses, failure logs and interrupted attempts are retained privately; public provenance identifies the original producer code by content hash.
