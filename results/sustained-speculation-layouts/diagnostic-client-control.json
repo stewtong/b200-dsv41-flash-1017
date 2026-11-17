@@ -1,0 +1,31 @@
+{
+  "schema": "cache-confounded-control/v1",
+  "status": "INCONCLUSIVE_CACHE_STATE_CONFOUNDED",
+  "rows": [
+    {
+      "cell": "rate-1.350000000-r1",
+      "native_prefix_hit_fraction": 0.8559437096809002,
+      "native_prefix_misses": 36219738.0,
+      "native_prefix_hits": 215207936.0,
+      "native_prefix_queries": 251427674.0,
+      "successful_turn_p95_seconds": 12.778185803,
+      "disposition": "INCONCLUSIVE_CACHE_STATE_CONFOUNDED",
+      "permitted_use": "diagnostic only; no client fidelity or capacity claim"
+    },
+    {
+      "cell": "rate-1.350000000-r1-r3-split",
+      "native_prefix_hit_fraction": 0.9989958895790336,
+      "native_prefix_misses": 251318.0,
+      "native_prefix_hits": 250037888.0,
+      "native_prefix_queries": 250289206.0,
+      "successful_turn_p95_seconds": 2.963014064,
+      "disposition": "INCONCLUSIVE_CACHE_STATE_CONFOUNDED",
+      "permitted_use": "diagnostic only; no client fidelity or capacity claim"
+    }
+  ],
+  "split_cell": "rate-1.350000000-r1-r3-split",
+  "combined_split_rows": 4568,
+  "disjoint_split_request_identities": true,
+  "root_cause": "unresolved",
+  "proof_history": "Producer qualification retained as historical draft only"
+}

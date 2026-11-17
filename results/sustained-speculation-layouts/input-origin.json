@@ -1,0 +1,30 @@
+{
+  "code": {
+    "origin": "https://github.com/python/cpython.git",
+    "revision": "910a92babf40b7b34baa22184e5df0868f6c27ee",
+    "file_selection": "CPython Lib/**/*.py excluding test and idlelib; source encoding cookies respected"
+  },
+  "prose": {
+    "origin": "https://github.com/GITenberg/Pride-and-Prejudice_1342.git",
+    "revision": "81db45c9c48c592f0b77f01fc59e677ad0a5634e",
+    "source_path": "1342-0.txt",
+    "title": "Pride and Prejudice by Jane Austen"
+  },
+  "prepared_public_text": [
+    {
+      "name": "python-lib-code.txt",
+      "sha256": "e665814dae97a73896b8f2e20f5fae716d0f7745c8e52331e86e575b73518c77",
+      "bytes": 11944795
+    },
+    {
+      "name": "pg1342.txt",
+      "sha256": "48e0522844402a86a3ea98f0947ba85ea54838db3c59022299298ed968a5a163",
+      "bytes": 724725
+    }
+  ],
+  "retention": "Exact prepared text and request captures are retained privately with per-file hashes.",
+  "licenses": [
+    "licenses/CPython-LICENSE.txt",
+    "licenses/Project-Gutenberg-LICENSE.txt"
+  ]
+}

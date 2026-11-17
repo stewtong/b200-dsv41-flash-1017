@@ -1,0 +1,72 @@
+{
+  "schema": "portable-offline-regressions/v1",
+  "status": "passed",
+  "cases": {
+    "eos_complete_stop": {
+      "previous_guarded": {
+        "success": true,
+        "complete": true,
+        "finish_reason": "stop",
+        "rejected": false
+      },
+      "final": {
+        "success": true,
+        "complete": true,
+        "finish_reason": "stop",
+        "rejected": false
+      }
+    },
+    "eos_truncated": {
+      "previous_guarded": {
+        "success": false,
+        "complete": false,
+        "finish_reason": "stop",
+        "rejected": true
+      },
+      "final": {
+        "success": false,
+        "complete": false,
+        "finish_reason": "stop",
+        "rejected": true
+      }
+    },
+    "eos_length": {
+      "previous_guarded": {
+        "success": false,
+        "complete": true,
+        "finish_reason": "length",
+        "rejected": true
+      },
+      "final": {
+        "success": false,
+        "complete": true,
+        "finish_reason": "length",
+        "rejected": true
+      }
+    },
+    "forced_smoke_none": {
+      "previous_guarded": {
+        "receipt_success": true,
+        "error": "TypeError: unsupported operand type(s) for -: 'int' and 'NoneType'"
+      },
+      "final": {
+        "receipt_success": true,
+        "error": ""
+      }
+    },
+    "forced_smoke_bad_receipt": {
+      "previous_guarded": {
+        "receipt_success": false,
+        "error": "RuntimeError: forced smoke qualification failed"
+      },
+      "final": {
+        "receipt_success": false,
+        "error": "RuntimeError: forced smoke qualification failed"
+      }
+    }
+  },
+  "network_or_inference": false,
+  "changed_source": "forced-smoke optional None arithmetic guard; prior guards retained",
+  "replay_sha256": "490c970e64dc7f1fc5420bcb42cb3694506d5fa3d57e582a928c13964e7d87be",
+  "scope": "actual helper functions with patched local streams/tokenizer"
+}

@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="830" viewBox="0 0 1500 830" role="img" aria-labelledby="chart-title chart-description" font-family="Arial, Helvetica, sans-serif" fill="#172b3a">
+<!-- register: scientific result chart | reader: serving engineers | consumed: report figure -->
+<title id="chart-title">K5 acceptance by offered load</title>
+<desc id="chart-description">39 core windows plus split diagnostic. Offered rates are categorical, not a fitted trend. Numeric scales are shared across workloads. Unavailable values appear in a separate strip. Each capture has exact source values in data attributes.</desc>
+<rect width="100%" height="100%" fill="white"/>
+<text x="50" y="39" font-size="26" font-weight="bold">K5 acceptance by offered load</text>
+<text x="50" y="68" font-size="15">39 core windows plus split diagnostic; 400 forced output tokens per turn.</text>
+<circle cx="62.000" cy="106.000" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+<text x="77" y="111" font-size="16">A: 2xTP4, DSpark K5</text>
+<circle cx="427.000" cy="106.000" r="5" fill="#20845a" stroke="#20845a" stroke-width="2"/>
+<text x="442" y="111" font-size="16">D: 2xTP4, NoSpec</text>
+<circle cx="792.000" cy="106.000" r="5" fill="#9a6400" stroke="#9a6400" stroke-width="2"/>
+<text x="807" y="111" font-size="16">B: DEP8, NoSpec</text>
+<circle cx="1157.000" cy="106.000" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+<text x="1172" y="111" font-size="16">C: DEP8, DSpark K5</text>
+<circle cx="62.000" cy="144.000" r="5" fill="#34495e" stroke="#34495e" stroke-width="2"/>
+<text x="77" y="149" font-size="14">r0</text>
+<circle cx="132.000" cy="144.000" r="5" fill="white" stroke="#34495e" stroke-width="2"/>
+<text x="147" y="149" font-size="14">r1</text>
+<path d="M221.000,138.000 L233.000,150.000 M233.000,138.000 L221.000,150.000" stroke="#b62424" stroke-width="2.5"/>
+<text x="242" y="149" font-size="14">Red X=failed drain</text>
+<path d="M475.000,137.000 L482.000,150.000 L468.000,150.000 Z" fill="#7c2d8b" stroke="white" stroke-width="1"/>
+<text x="490" y="149" font-size="14">split: cache-confounded diagnostic</text>
+<rect x="846.000" y="140.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+<text x="865" y="149" font-size="14">Unavailable value (separate strip)</text>
+<text x="50" y="180" font-size="14">Horizontal offsets separate arms and repeats within each offered rate; points are categorical, not a fitted trend.</text>
+<text x="105" y="209" font-size="18" font-weight="bold">W1: eight turns per conversation</text>
+<line x1="105.000" y1="552.000" x2="707.000" y2="552.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="557.0" font-size="14" text-anchor="end">2.6</text>
+<line x1="105.000" y1="497.333" x2="707.000" y2="497.333" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="502.333" font-size="14" text-anchor="end">2.7</text>
+<line x1="105.000" y1="442.667" x2="707.000" y2="442.667" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="447.667" font-size="14" text-anchor="end">2.8</text>
+<line x1="105.000" y1="388.000" x2="707.000" y2="388.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="393.0" font-size="14" text-anchor="end">2.9</text>
+<line x1="105.000" y1="333.333" x2="707.000" y2="333.333" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="338.333" font-size="14" text-anchor="end">3</text>
+<line x1="105.000" y1="278.667" x2="707.000" y2="278.667" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="283.667" font-size="14" text-anchor="end">3.1</text>
+<line x1="105.000" y1="224.000" x2="707.000" y2="224.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="229.0" font-size="14" text-anchor="end">3.2</text>
+<line x1="105.000" y1="224.000" x2="105.000" y2="552.000" stroke="#617181" stroke-width="1"/>
+<line x1="105.000" y1="552.000" x2="707.000" y2="552.000" stroke="#617181" stroke-width="1"/>
+<line x1="165.200" y1="552.000" x2="165.200" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="165.2" y="581" font-size="15" text-anchor="middle">0.05</text>
+<line x1="285.600" y1="552.000" x2="285.600" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="285.6" y="581" font-size="15" text-anchor="middle">0.15</text>
+<line x1="406.000" y1="552.000" x2="406.000" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="406.0" y="581" font-size="15" text-anchor="middle">0.45</text>
+<line x1="526.400" y1="552.000" x2="526.400" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="526.4" y="581" font-size="15" text-anchor="middle">1.35</text>
+<line x1="646.800" y1="552.000" x2="646.800" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="646.8" y="581" font-size="15" text-anchor="middle">4.05</text>
+<text x="406.0" y="611" font-size="15" text-anchor="middle">Offered conversations per second</text>
+<rect x="105" y="636" width="602" height="58" rx="4" fill="#f1f4f7"/>
+<text x="113" y="653" font-size="12" fill="#536577">Unavailable (no numeric Y value)</text>
+<g data-capture-id="A/W1/rate-0.050000000-r0-v2" data-value="2.8282005078220984" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="0.05" data-repeat="0"><title>A/W1/rate-0.050000000-r0-v2 | candidate | Acceptance length (tokens per draft step): 2.8282005078220984</title>
+<circle cx="126.200" cy="427.250" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-0.150000000-r0-per-rate-v2" data-value="2.706917420446411" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="0.15" data-repeat="0"><title>A/W1/rate-0.150000000-r0-per-rate-v2 | candidate | Acceptance length (tokens per draft step): 2.706917420446411</title>
+<circle cx="246.600" cy="493.552" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-0.450000000-r0" data-value="2.7524497914039" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="0.45" data-repeat="0"><title>A/W1/rate-0.450000000-r0 | candidate | Acceptance length (tokens per draft step): 2.7524497914039</title>
+<circle cx="367.000" cy="468.661" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-1.350000000-r0" data-value="2.7081688733449916" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="1.35" data-repeat="0"><title>A/W1/rate-1.350000000-r0 | candidate | Acceptance length (tokens per draft step): 2.7081688733449916</title>
+<circle cx="487.400" cy="492.868" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-1.350000000-r1" data-value="2.7280892312428286" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="1.35" data-repeat="1"><title>A/W1/rate-1.350000000-r1 | candidate | Acceptance length (tokens per draft step): 2.7280892312428286</title>
+<circle cx="499.400" cy="481.978" r="5" fill="white" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-4.050000000-r0" data-value="2.723382931154113" data-disposition="failed_drain" data-arm="A" data-workload="W1" data-rate="4.05" data-repeat="0"><title>A/W1/rate-4.050000000-r0 | failed_drain | Acceptance length (tokens per draft step): 2.723382931154113</title>
+<path d="M601.800,478.551 L613.800,490.551 M613.800,478.551 L601.800,490.551" stroke="#b62424" stroke-width="2.5"/>
+</g>
+<g data-capture-id="D/W1/rate-0.050000000-r0" data-value="null" data-disposition="candidate" data-arm="D" data-workload="W1" data-rate="0.05" data-repeat="0"><title>D/W1/rate-0.050000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="144.200" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W1/rate-0.150000000-r0-per-rate-profile-v2" data-value="null" data-disposition="candidate" data-arm="D" data-workload="W1" data-rate="0.15" data-repeat="0"><title>D/W1/rate-0.150000000-r0-per-rate-profile-v2 | candidate | NoSpec acceptance unavailable</title>
+<rect x="264.600" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W1/rate-0.450000000-r0" data-value="null" data-disposition="candidate" data-arm="D" data-workload="W1" data-rate="0.45" data-repeat="0"><title>D/W1/rate-0.450000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="385.000" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W1/rate-0.450000000-r1" data-value="null" data-disposition="candidate" data-arm="D" data-workload="W1" data-rate="0.45" data-repeat="1"><title>D/W1/rate-0.450000000-r1 | candidate | NoSpec acceptance unavailable</title>
+<rect x="397.000" y="672.000" width="8" height="8" fill="white" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W1/rate-1.350000000-r0-per-rate-profile-v3" data-value="null" data-disposition="failed_drain" data-arm="D" data-workload="W1" data-rate="1.35" data-repeat="0"><title>D/W1/rate-1.350000000-r0-per-rate-profile-v3 | failed_drain | NoSpec acceptance unavailable</title>
+<path d="M503.400,670.000 L515.400,682.000 M515.400,670.000 L503.400,682.000" stroke="#b62424" stroke-width="2.5"/>
+</g>
+<g data-capture-id="B/W1/rate-0.050000000-r0" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="0.05" data-repeat="0"><title>B/W1/rate-0.050000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="166.200" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-0.150000000-r0" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="0.15" data-repeat="0"><title>B/W1/rate-0.150000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="286.600" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-0.450000000-r0" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="0.45" data-repeat="0"><title>B/W1/rate-0.450000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="407.000" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-1.350000000-r0" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="1.35" data-repeat="0"><title>B/W1/rate-1.350000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="527.400" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-1.350000000-r1" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="1.35" data-repeat="1"><title>B/W1/rate-1.350000000-r1 | candidate | NoSpec acceptance unavailable</title>
+<rect x="539.400" y="672.000" width="8" height="8" fill="white" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-4.050000000-r0" data-value="null" data-disposition="failed_drain" data-arm="B" data-workload="W1" data-rate="4.05" data-repeat="0"><title>B/W1/rate-4.050000000-r0 | failed_drain | NoSpec acceptance unavailable</title>
+<path d="M645.800,670.000 L657.800,682.000 M657.800,670.000 L645.800,682.000" stroke="#b62424" stroke-width="2.5"/>
+</g>
+<g data-capture-id="C/W1/rate-0.050000000-r0" data-value="2.863634472140152" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="0.05" data-repeat="0"><title>C/W1/rate-0.050000000-r0 | candidate | Acceptance length (tokens per draft step): 2.863634472140152</title>
+<circle cx="192.200" cy="407.880" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-0.150000000-r0" data-value="2.724587043531544" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="0.15" data-repeat="0"><title>C/W1/rate-0.150000000-r0 | candidate | Acceptance length (tokens per draft step): 2.724587043531544</title>
+<circle cx="312.600" cy="483.892" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-0.450000000-r0" data-value="2.7742414446549994" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="0.45" data-repeat="0"><title>C/W1/rate-0.450000000-r0 | candidate | Acceptance length (tokens per draft step): 2.7742414446549994</title>
+<circle cx="433.000" cy="456.748" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-1.350000000-r0" data-value="2.7203980824899183" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="1.35" data-repeat="0"><title>C/W1/rate-1.350000000-r0 | candidate | Acceptance length (tokens per draft step): 2.7203980824899183</title>
+<circle cx="553.400" cy="486.182" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-1.350000000-r1" data-value="2.7422521397692767" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="1.35" data-repeat="1"><title>C/W1/rate-1.350000000-r1 | candidate | Acceptance length (tokens per draft step): 2.7422521397692767</title>
+<circle cx="565.400" cy="474.235" r="5" fill="white" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-4.050000000-r0" data-value="2.7292784856635737" data-disposition="failed_drain" data-arm="C" data-workload="W1" data-rate="4.05" data-repeat="0"><title>C/W1/rate-4.050000000-r0 | failed_drain | Acceptance length (tokens per draft step): 2.7292784856635737</title>
+<path d="M667.800,475.328 L679.800,487.328 M679.800,475.328 L667.800,487.328" stroke="#b62424" stroke-width="2.5"/>
+</g>
+<g data-capture-id="A/W1/rate-1.350000000-r1-r3-split" data-value="2.722154529189119" data-disposition="cache_confounded_diagnostic" data-arm="A" data-workload="W1" data-rate="1.35" data-repeat="1"><title>A/W1/rate-1.350000000-r1-r3-split | cache_confounded_diagnostic | Acceptance length (tokens per draft step): 2.722154529189119</title>
+<path d="M473.400,478.222 L480.400,491.222 L466.400,491.222 Z" fill="#7c2d8b" stroke="white" stroke-width="1"/>
+</g>
+<text x="463.4" y="473.222" font-size="12" fill="#7c2d8b" text-anchor="end" font-weight="bold">split</text>
+<text x="850" y="209" font-size="18" font-weight="bold">W2: four turns per conversation</text>
+<line x1="850.000" y1="552.000" x2="1452.000" y2="552.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="557.0" font-size="14" text-anchor="end">2.6</text>
+<line x1="850.000" y1="497.333" x2="1452.000" y2="497.333" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="502.333" font-size="14" text-anchor="end">2.7</text>
+<line x1="850.000" y1="442.667" x2="1452.000" y2="442.667" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="447.667" font-size="14" text-anchor="end">2.8</text>
+<line x1="850.000" y1="388.000" x2="1452.000" y2="388.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="393.0" font-size="14" text-anchor="end">2.9</text>
+<line x1="850.000" y1="333.333" x2="1452.000" y2="333.333" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="338.333" font-size="14" text-anchor="end">3</text>
+<line x1="850.000" y1="278.667" x2="1452.000" y2="278.667" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="283.667" font-size="14" text-anchor="end">3.1</text>
+<line x1="850.000" y1="224.000" x2="1452.000" y2="224.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="229.0" font-size="14" text-anchor="end">3.2</text>
+<line x1="850.000" y1="224.000" x2="850.000" y2="552.000" stroke="#617181" stroke-width="1"/>
+<line x1="850.000" y1="552.000" x2="1452.000" y2="552.000" stroke="#617181" stroke-width="1"/>
+<line x1="950.333" y1="552.000" x2="950.333" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="950.333" y="581" font-size="15" text-anchor="middle">0.02</text>
+<line x1="1151.000" y1="552.000" x2="1151.000" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="1151.0" y="581" font-size="15" text-anchor="middle">0.08</text>
+<line x1="1351.667" y1="552.000" x2="1351.667" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="1351.667" y="581" font-size="15" text-anchor="middle">0.32</text>
+<text x="1151.0" y="611" font-size="15" text-anchor="middle">Offered conversations per second</text>
+<rect x="850" y="636" width="602" height="58" rx="4" fill="#f1f4f7"/>
+<text x="858" y="653" font-size="12" fill="#536577">Unavailable (no numeric Y value)</text>
+<g data-capture-id="A/W2/rate-0.020000000-r0" data-value="null" data-disposition="inconclusive_native_telemetry" data-arm="A" data-workload="W2" data-rate="0.02" data-repeat="0"><title>A/W2/rate-0.020000000-r0 | inconclusive_native_telemetry | native telemetry inconclusive</title>
+<rect x="907.333" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W2/rate-0.080000000-r0" data-value="3.088958277969705" data-disposition="candidate" data-arm="A" data-workload="W2" data-rate="0.08" data-repeat="0"><title>A/W2/rate-0.080000000-r0 | candidate | Acceptance length (tokens per draft step): 3.088958277969705</title>
+<circle cx="1112.000" cy="284.703" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W2/rate-0.320000000-r0" data-value="3.056660314728301" data-disposition="candidate" data-arm="A" data-workload="W2" data-rate="0.32" data-repeat="0"><title>A/W2/rate-0.320000000-r0 | candidate | Acceptance length (tokens per draft step): 3.056660314728301</title>
+<circle cx="1312.667" cy="302.359" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W2/rate-0.320000000-r1" data-value="2.964371865908393" data-disposition="candidate" data-arm="A" data-workload="W2" data-rate="0.32" data-repeat="1"><title>A/W2/rate-0.320000000-r1 | candidate | Acceptance length (tokens per draft step): 2.964371865908393</title>
+<circle cx="1324.667" cy="352.810" r="5" fill="white" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W2/rate-0.020000000-r0" data-value="null" data-disposition="candidate" data-arm="D" data-workload="W2" data-rate="0.02" data-repeat="0"><title>D/W2/rate-0.020000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="929.333" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W2/rate-0.080000000-r0" data-value="null" data-disposition="candidate" data-arm="D" data-workload="W2" data-rate="0.08" data-repeat="0"><title>D/W2/rate-0.080000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="1130.000" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W2/rate-0.320000000-r0" data-value="null" data-disposition="candidate" data-arm="D" data-workload="W2" data-rate="0.32" data-repeat="0"><title>D/W2/rate-0.320000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="1330.667" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W2/rate-0.320000000-r1" data-value="null" data-disposition="candidate" data-arm="D" data-workload="W2" data-rate="0.32" data-repeat="1"><title>D/W2/rate-0.320000000-r1 | candidate | NoSpec acceptance unavailable</title>
+<rect x="1342.667" y="672.000" width="8" height="8" fill="white" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W2/rate-0.020000000-r0" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W2" data-rate="0.02" data-repeat="0"><title>B/W2/rate-0.020000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="951.333" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W2/rate-0.080000000-r0" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W2" data-rate="0.08" data-repeat="0"><title>B/W2/rate-0.080000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="1152.000" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W2/rate-0.320000000-r0" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W2" data-rate="0.32" data-repeat="0"><title>B/W2/rate-0.320000000-r0 | candidate | NoSpec acceptance unavailable</title>
+<rect x="1352.667" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W2/rate-0.320000000-r1" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W2" data-rate="0.32" data-repeat="1"><title>B/W2/rate-0.320000000-r1 | candidate | NoSpec acceptance unavailable</title>
+<rect x="1364.667" y="672.000" width="8" height="8" fill="white" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W2/rate-0.020000000-r0" data-value="3.00883782589483" data-disposition="candidate" data-arm="C" data-workload="W2" data-rate="0.02" data-repeat="0"><title>C/W2/rate-0.020000000-r0 | candidate | Acceptance length (tokens per draft step): 3.00883782589483</title>
+<circle cx="977.333" cy="328.502" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W2/rate-0.080000000-r0" data-value="3.12580688542227" data-disposition="candidate" data-arm="C" data-workload="W2" data-rate="0.08" data-repeat="0"><title>C/W2/rate-0.080000000-r0 | candidate | Acceptance length (tokens per draft step): 3.12580688542227</title>
+<circle cx="1178.000" cy="264.559" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W2/rate-0.320000000-r0" data-value="3.0245276303368875" data-disposition="candidate" data-arm="C" data-workload="W2" data-rate="0.32" data-repeat="0"><title>C/W2/rate-0.320000000-r0 | candidate | Acceptance length (tokens per draft step): 3.0245276303368875</title>
+<circle cx="1378.667" cy="319.925" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W2/rate-0.320000000-r1" data-value="3.015359199892843" data-disposition="candidate" data-arm="C" data-workload="W2" data-rate="0.32" data-repeat="1"><title>C/W2/rate-0.320000000-r1 | candidate | Acceptance length (tokens per draft step): 3.015359199892843</title>
+<circle cx="1390.667" cy="324.937" r="5" fill="white" stroke="#d15e26" stroke-width="2"/>
+</g>
+<text x="27" y="388.0" font-size="16" transform="rotate(-90 27 388)" text-anchor="middle">Acceptance length (tokens per draft step)</text>
+<text x="50" y="728" font-size="14">Acceptance length = 1 + accepted-token deltas / draft-step deltas; the Y axis starts above zero.</text>
+<text x="50" y="753" font-size="14">NoSpec acceptance is unavailable. A/W2/0.02 acceptance is unavailable because native telemetry is inconclusive.</text>
+<text x="50" y="778" font-size="14">W1 and W2 have variable prompt lengths. The split diagnostic has unmatched cache state; maximum sustainable rates remain unestablished.</text>
+<text x="50" y="803" font-size="14">All numeric marks use the shared Y scale. Unavailable marks have no numeric value; horizontal position identifies offered rate and arm.</text>
+</svg>

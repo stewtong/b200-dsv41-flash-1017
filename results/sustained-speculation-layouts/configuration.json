@@ -1,0 +1,323 @@
+{
+  "schema": "sustained-public-configuration/v2",
+  "hardware": "8 B200 GPUs",
+  "arms": {
+    "A": "2xtp4, DSpark K5",
+    "D": "2xtp4, NoSpec",
+    "B": "dep8, NoSpec",
+    "C": "dep8, DSpark K5"
+  },
+  "workloads": {
+    "W1": {
+      "turns": 8,
+      "base_input_tokens": 52000,
+      "step_input_tokens": 3200,
+      "actual_prepared_input_range": [
+        45075,
+        117842
+      ]
+    },
+    "W2": {
+      "turns": 4,
+      "base_input_tokens": 248000,
+      "step_input_tokens": 3200,
+      "actual_prepared_input_range": [
+        219003,
+        445038
+      ]
+    }
+  },
+  "measurement": {
+    "warmup_seconds": 60,
+    "completion_window_seconds": 360,
+    "drain_limit_seconds": 120,
+    "forced_output_tokens": 400,
+    "gpu_count": 8
+  },
+  "server_CPU_policy": "Scored A/D and corrected B/C: 144 server logical CPUs 8-79 and 88-159; client CPUs 0-7 and 80-87 reserved.",
+  "invalid_deployments": "Initial B/C literal CPUs 0,1 attempts are excluded from model-compatibility inference.",
+  "route_qualifiers": [
+    "A/D unused Responses store flag differs; no Responses equivalence claimed",
+    "A/D compiler-cache backing differs at same in-container path; startup equivalence not claimed",
+    "B/C compiler-cache backing difference retained; compare whole layout/backend/KV recipes",
+    "speculation flags and metrics flag differ as required within paired recipes"
+  ],
+  "corrected_C_qualification": "Strict natural stop plus 8192-token forced output at 52019 input and 64K-class warm-up with native K5 movement passed within original corrected 45-minute clock.",
+  "restoration": "Original endpoint independently verified restored; health, original identity, generation and new stored-response round trips passed. Previous stored Responses were lost on restart.",
+  "external_context": {
+    "url": "https://docs.nvidia.com/dynamo/dev/recipes/deepseek-v4-1-flash",
+    "published_point": "990.57 output tok/s/GPU, 64K/400, concurrency 168, 2xTP4, K3",
+    "limit": "Context only; backend/KV, routing/scheduler and pinned revision differ. No controlled speedup or capacity ratio.",
+    "model_revision": "dba1be0a40aa45a94ad051997016db3960a90277",
+    "weight_identity_across_revisions": "not established"
+  },
+  "policy_reference_hashes": {
+    "cpu_partition.py": "915ad62ff46eae1c73769c7777ff66b035345b6655b2e694631748e07fcf97a0",
+    "frozen-profile-2xtp4.json": "a7195bc66b0e0a46e9567a4ad6bd3f101cd476a2f36d2ec8e9f1661c36f840f2",
+    "frozen-profile-dep8.json": "a00a39e182a39cb7bfb61833081fa3e9f638fdfdeab675289f002f93304ff849",
+    "launcher.py": "f3e8672f4903f5c6ef738e013e015b51a29f93c763b2a46f288a33337018e788",
+    "verify_engine_profile.py": "2c48e74847bc2af536f4bb3574012a516cd51b1ac6d0a62716248e05a1046ec1"
+  },
+  "temporal_drift": "optional final A drift omitted; temporal stability unresolved",
+  "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "model_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "router": {
+    "version": "0.1.14",
+    "policy": "consistent_hash",
+    "session_header": "X-Session-Id"
+  },
+  "client_worker_ceiling": 256,
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "min_tokens": 400,
+    "max_tokens": 400,
+    "ignore_eos": true,
+    "thinking": false
+  },
+  "tokenizer_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "image_digest": "vllm/vllm-openai@sha256:aeb580d55ee3dcccd7b5c78d7871326f367bee5cfd8ca8e411c253d7983a0046",
+  "vllm_version": "0.33.0rc1.dev447+ge0d00e4b8",
+  "serving_arguments": {
+    "A": [
+      "serve",
+      "--model",
+      "/model",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8000",
+      "--language-model-only",
+      "--tokenizer-mode",
+      "deepseek_v41",
+      "--tensor-parallel-size",
+      "4",
+      "--kv-cache-dtype",
+      "fp8",
+      "--max-model-len",
+      "1048576",
+      "--max-num-seqs",
+      "64",
+      "--max-num-batched-tokens",
+      "8192",
+      "--enable-chunked-prefill",
+      "--gpu-memory-utilization",
+      "0.90",
+      "--enable-prefix-caching",
+      "--reasoning-parser",
+      "deepseek_v41",
+      "--tool-call-parser",
+      "deepseek_v41",
+      "--enable-auto-tool-choice",
+      "--compilation-config",
+      "{\"mode\":\"VLLM_COMPILE\",\"cudagraph_mode\":\"FULL_AND_PIECEWISE\"}",
+      "--engram-config",
+      "{\"cpu_offload\":true}",
+      "--attention-config",
+      "{\"backend\":\"FLASHINFER_MLA_SPARSE_DSV41\",\"indexer_kv_dtype\":\"mxfp4\",\"indexer_sparse_logits\":true}",
+      "--per-request-spec-decode-metrics",
+      "detailed",
+      "--speculative-config",
+      "{\"draft_sample_method\":\"probabilistic\",\"enable_adaptive_verification\":false,\"method\":\"dspark\",\"num_speculative_tokens\":5,\"rejection_sample_method\":\"block\"}",
+      "--enable-scale-out"
+    ],
+    "D": [
+      "serve",
+      "--model",
+      "/model",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8000",
+      "--language-model-only",
+      "--tokenizer-mode",
+      "deepseek_v41",
+      "--tensor-parallel-size",
+      "4",
+      "--kv-cache-dtype",
+      "fp8",
+      "--max-model-len",
+      "1048576",
+      "--max-num-seqs",
+      "64",
+      "--max-num-batched-tokens",
+      "8192",
+      "--enable-chunked-prefill",
+      "--gpu-memory-utilization",
+      "0.90",
+      "--enable-prefix-caching",
+      "--reasoning-parser",
+      "deepseek_v41",
+      "--tool-call-parser",
+      "deepseek_v41",
+      "--enable-auto-tool-choice",
+      "--compilation-config",
+      "{\"mode\":\"VLLM_COMPILE\",\"cudagraph_mode\":\"FULL_AND_PIECEWISE\"}",
+      "--engram-config",
+      "{\"cpu_offload\":true}",
+      "--attention-config",
+      "{\"backend\":\"FLASHINFER_MLA_SPARSE_DSV41\",\"indexer_kv_dtype\":\"mxfp4\",\"indexer_sparse_logits\":true}",
+      "--enable-scale-out"
+    ],
+    "B": [
+      "--model",
+      "/model",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8000",
+      "--language-model-only",
+      "--tokenizer-mode",
+      "deepseek_v41",
+      "--tensor-parallel-size",
+      "1",
+      "--kv-cache-dtype",
+      "fp8_ds_mla",
+      "--max-model-len",
+      "1048576",
+      "--max-num-seqs",
+      "128",
+      "--max-num-batched-tokens",
+      "8192",
+      "--enable-chunked-prefill",
+      "--gpu-memory-utilization",
+      "0.90",
+      "--enable-prefix-caching",
+      "--reasoning-parser",
+      "deepseek_v41",
+      "--tool-call-parser",
+      "deepseek_v41",
+      "--enable-auto-tool-choice",
+      "--compilation-config",
+      "{\"mode\":\"VLLM_COMPILE\",\"cudagraph_mode\":\"FULL_AND_PIECEWISE\"}",
+      "--engram-config",
+      "{\"cpu_offload\":true,\"embedding_across_dp\":true}",
+      "--attention-config",
+      "{\"backend\":\"FLASHMLA_MEGA_ATTN_DSV41\",\"indexer_kv_dtype\":\"mxfp4\",\"indexer_sparse_logits\":true}",
+      "--data-parallel-size",
+      "8",
+      "--data-parallel-size-local",
+      "8",
+      "--enable-expert-parallel",
+      "--kernel-config",
+      "{\"enable_flashinfer_autotune\":true,\"moe_backend\":\"deep_gemm_mega_moe\"}"
+    ],
+    "C": [
+      "--model",
+      "/model",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8000",
+      "--language-model-only",
+      "--tokenizer-mode",
+      "deepseek_v41",
+      "--tensor-parallel-size",
+      "1",
+      "--kv-cache-dtype",
+      "fp8_ds_mla",
+      "--max-model-len",
+      "1048576",
+      "--max-num-seqs",
+      "128",
+      "--max-num-batched-tokens",
+      "8192",
+      "--enable-chunked-prefill",
+      "--gpu-memory-utilization",
+      "0.90",
+      "--enable-prefix-caching",
+      "--reasoning-parser",
+      "deepseek_v41",
+      "--tool-call-parser",
+      "deepseek_v41",
+      "--enable-auto-tool-choice",
+      "--compilation-config",
+      "{\"mode\":\"VLLM_COMPILE\",\"cudagraph_mode\":\"FULL_AND_PIECEWISE\"}",
+      "--engram-config",
+      "{\"cpu_offload\":true,\"embedding_across_dp\":true}",
+      "--attention-config",
+      "{\"backend\":\"FLASHMLA_MEGA_ATTN_DSV41\",\"indexer_kv_dtype\":\"mxfp4\",\"indexer_sparse_logits\":true}",
+      "--data-parallel-size",
+      "8",
+      "--data-parallel-size-local",
+      "8",
+      "--enable-expert-parallel",
+      "--kernel-config",
+      "{\"enable_flashinfer_autotune\":true,\"moe_backend\":\"deep_gemm_mega_moe\"}",
+      "--speculative-config",
+      "{\"draft_sample_method\":\"probabilistic\",\"enable_adaptive_verification\":false,\"method\":\"dspark\",\"num_speculative_tokens\":5,\"rejection_sample_method\":\"block\"}"
+    ]
+  },
+  "gpu_groups": {
+    "A": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6,
+        7
+      ]
+    ],
+    "D": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6,
+        7
+      ]
+    ],
+    "B": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    ],
+    "C": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    ]
+  },
+  "layout_settings": {
+    "2xtp4": {
+      "replicas": 2,
+      "tensor_parallel_size": 4,
+      "expert_parallel": false,
+      "max_num_seqs_per_replica": 64
+    },
+    "dep8": {
+      "replicas": 1,
+      "data_parallel_size": 8,
+      "tensor_parallel_size": 1,
+      "expert_parallel": true,
+      "max_num_seqs_per_DP_rank": 128
+    }
+  },
+  "client_worker_ceiling_split": "128 per client, 256 combined",
+  "protocol": "Poisson conversation arrivals; fixed appended transcript independent of generated text; per-conversation X-Session-Id; 60s warmup, 360s measured arrivals, at most 120s drain; no router retries.",
+  "input_length_limit": "Nominal workload labels only. Exact prepared counts vary with real-text token density; measurement-details.json publishes per-turn min/max across all indexed prepared turns, including warmup."
+}

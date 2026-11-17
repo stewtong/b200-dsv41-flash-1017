@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="830" viewBox="0 0 1500 830" role="img" aria-labelledby="chart-title chart-description" font-family="Arial, Helvetica, sans-serif" fill="#172b3a">
+<!-- register: scientific result chart | reader: serving engineers | consumed: report figure -->
+<title id="chart-title">Successful-turn completion p95 by offered load</title>
+<desc id="chart-description">39 core windows plus split diagnostic. Offered rates are categorical, not a fitted trend. Numeric scales are shared across workloads. Unavailable values appear in a separate strip. Each capture has exact source values in data attributes.</desc>
+<rect width="100%" height="100%" fill="white"/>
+<text x="50" y="39" font-size="26" font-weight="bold">Successful-turn completion p95 by offered load</text>
+<text x="50" y="68" font-size="15">39 core windows plus split diagnostic; 400 forced output tokens per turn.</text>
+<circle cx="62.000" cy="106.000" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+<text x="77" y="111" font-size="16">A: 2xTP4, DSpark K5</text>
+<circle cx="427.000" cy="106.000" r="5" fill="#20845a" stroke="#20845a" stroke-width="2"/>
+<text x="442" y="111" font-size="16">D: 2xTP4, NoSpec</text>
+<circle cx="792.000" cy="106.000" r="5" fill="#9a6400" stroke="#9a6400" stroke-width="2"/>
+<text x="807" y="111" font-size="16">B: DEP8, NoSpec</text>
+<circle cx="1157.000" cy="106.000" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+<text x="1172" y="111" font-size="16">C: DEP8, DSpark K5</text>
+<circle cx="62.000" cy="144.000" r="5" fill="#34495e" stroke="#34495e" stroke-width="2"/>
+<text x="77" y="149" font-size="14">r0</text>
+<circle cx="132.000" cy="144.000" r="5" fill="white" stroke="#34495e" stroke-width="2"/>
+<text x="147" y="149" font-size="14">r1</text>
+<path d="M221.000,138.000 L233.000,150.000 M233.000,138.000 L221.000,150.000" stroke="#b62424" stroke-width="2.5"/>
+<text x="242" y="149" font-size="14">Red X=failed drain</text>
+<path d="M475.000,137.000 L482.000,150.000 L468.000,150.000 Z" fill="#7c2d8b" stroke="white" stroke-width="1"/>
+<text x="490" y="149" font-size="14">split: cache-confounded diagnostic</text>
+<rect x="846.000" y="140.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+<text x="865" y="149" font-size="14">Unavailable value (separate strip)</text>
+<text x="50" y="180" font-size="14">Horizontal offsets separate arms and repeats within each offered rate; points are categorical, not a fitted trend.</text>
+<text x="105" y="209" font-size="18" font-weight="bold">W1: eight turns per conversation</text>
+<line x1="105.000" y1="552.000" x2="707.000" y2="552.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="557.0" font-size="14" text-anchor="end">0</text>
+<line x1="105.000" y1="497.333" x2="707.000" y2="497.333" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="502.333" font-size="14" text-anchor="end">20</text>
+<line x1="105.000" y1="442.667" x2="707.000" y2="442.667" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="447.667" font-size="14" text-anchor="end">40</text>
+<line x1="105.000" y1="388.000" x2="707.000" y2="388.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="393.0" font-size="14" text-anchor="end">60</text>
+<line x1="105.000" y1="333.333" x2="707.000" y2="333.333" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="338.333" font-size="14" text-anchor="end">80</text>
+<line x1="105.000" y1="278.667" x2="707.000" y2="278.667" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="283.667" font-size="14" text-anchor="end">100</text>
+<line x1="105.000" y1="224.000" x2="707.000" y2="224.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="93" y="229.0" font-size="14" text-anchor="end">120</text>
+<line x1="105.000" y1="224.000" x2="105.000" y2="552.000" stroke="#617181" stroke-width="1"/>
+<line x1="105.000" y1="552.000" x2="707.000" y2="552.000" stroke="#617181" stroke-width="1"/>
+<line x1="165.200" y1="552.000" x2="165.200" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="165.2" y="581" font-size="15" text-anchor="middle">0.05</text>
+<line x1="285.600" y1="552.000" x2="285.600" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="285.6" y="581" font-size="15" text-anchor="middle">0.15</text>
+<line x1="406.000" y1="552.000" x2="406.000" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="406.0" y="581" font-size="15" text-anchor="middle">0.45</text>
+<line x1="526.400" y1="552.000" x2="526.400" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="526.4" y="581" font-size="15" text-anchor="middle">1.35</text>
+<line x1="646.800" y1="552.000" x2="646.800" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="646.8" y="581" font-size="15" text-anchor="middle">4.05</text>
+<text x="406.0" y="611" font-size="15" text-anchor="middle">Offered conversations per second</text>
+<rect x="105" y="636" width="602" height="58" rx="4" fill="#f1f4f7"/>
+<text x="113" y="653" font-size="12" fill="#536577">Unavailable (no numeric Y value)</text>
+<g data-capture-id="A/W1/rate-0.050000000-r0-v2" data-value="1.665744905" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="0.05" data-repeat="0"><title>A/W1/rate-0.050000000-r0-v2 | candidate | Successful-turn completion p95 (seconds): 1.665744905</title>
+<circle cx="126.200" cy="547.447" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-0.150000000-r0-per-rate-v2" data-value="2.144402109" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="0.15" data-repeat="0"><title>A/W1/rate-0.150000000-r0-per-rate-v2 | candidate | Successful-turn completion p95 (seconds): 2.144402109</title>
+<circle cx="246.600" cy="546.139" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-0.450000000-r0" data-value="4.165916495" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="0.45" data-repeat="0"><title>A/W1/rate-0.450000000-r0 | candidate | Successful-turn completion p95 (seconds): 4.165916495</title>
+<circle cx="367.000" cy="540.613" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-1.350000000-r0" data-value="14.018146445" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="1.35" data-repeat="0"><title>A/W1/rate-1.350000000-r0 | candidate | Successful-turn completion p95 (seconds): 14.018146445</title>
+<circle cx="487.400" cy="513.684" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-1.350000000-r1" data-value="12.778185803" data-disposition="candidate" data-arm="A" data-workload="W1" data-rate="1.35" data-repeat="1"><title>A/W1/rate-1.350000000-r1 | candidate | Successful-turn completion p95 (seconds): 12.778185803</title>
+<circle cx="499.400" cy="517.073" r="5" fill="white" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W1/rate-4.050000000-r0" data-value="34.493877988" data-disposition="failed_drain" data-arm="A" data-workload="W1" data-rate="4.05" data-repeat="0"><title>A/W1/rate-4.050000000-r0 | failed_drain | Successful-turn completion p95 (seconds): 34.493877988</title>
+<path d="M601.800,451.717 L613.800,463.717 M613.800,451.717 L601.800,463.717" stroke="#b62424" stroke-width="2.5"/>
+</g>
+<g data-capture-id="D/W1/rate-0.050000000-r0" data-value="3.951128695" data-disposition="candidate" data-arm="D" data-workload="W1" data-rate="0.05" data-repeat="0"><title>D/W1/rate-0.050000000-r0 | candidate | Successful-turn completion p95 (seconds): 3.951128695</title>
+<circle cx="148.200" cy="541.200" r="5" fill="#20845a" stroke="#20845a" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W1/rate-0.150000000-r0-per-rate-profile-v2" data-value="3.818347008" data-disposition="candidate" data-arm="D" data-workload="W1" data-rate="0.15" data-repeat="0"><title>D/W1/rate-0.150000000-r0-per-rate-profile-v2 | candidate | Successful-turn completion p95 (seconds): 3.818347008</title>
+<circle cx="268.600" cy="541.563" r="5" fill="#20845a" stroke="#20845a" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W1/rate-0.450000000-r0" data-value="10.51340683" data-disposition="candidate" data-arm="D" data-workload="W1" data-rate="0.45" data-repeat="0"><title>D/W1/rate-0.450000000-r0 | candidate | Successful-turn completion p95 (seconds): 10.51340683</title>
+<circle cx="389.000" cy="523.263" r="5" fill="#20845a" stroke="#20845a" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W1/rate-0.450000000-r1" data-value="7.43295647" data-disposition="candidate" data-arm="D" data-workload="W1" data-rate="0.45" data-repeat="1"><title>D/W1/rate-0.450000000-r1 | candidate | Successful-turn completion p95 (seconds): 7.43295647</title>
+<circle cx="401.000" cy="531.683" r="5" fill="white" stroke="#20845a" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W1/rate-1.350000000-r0-per-rate-profile-v3" data-value="59.584783785" data-disposition="failed_drain" data-arm="D" data-workload="W1" data-rate="1.35" data-repeat="0"><title>D/W1/rate-1.350000000-r0-per-rate-profile-v3 | failed_drain | Successful-turn completion p95 (seconds): 59.584783785</title>
+<path d="M503.400,383.135 L515.400,395.135 M515.400,383.135 L503.400,395.135" stroke="#b62424" stroke-width="2.5"/>
+</g>
+<g data-capture-id="B/W1/rate-0.050000000-r0" data-value="4.06246215" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="0.05" data-repeat="0"><title>B/W1/rate-0.050000000-r0 | candidate | Successful-turn completion p95 (seconds): 4.06246215</title>
+<circle cx="170.200" cy="540.896" r="5" fill="#9a6400" stroke="#9a6400" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-0.150000000-r0" data-value="4.803686958" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="0.15" data-repeat="0"><title>B/W1/rate-0.150000000-r0 | candidate | Successful-turn completion p95 (seconds): 4.803686958</title>
+<circle cx="290.600" cy="538.870" r="5" fill="#9a6400" stroke="#9a6400" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-0.450000000-r0" data-value="8.389493245" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="0.45" data-repeat="0"><title>B/W1/rate-0.450000000-r0 | candidate | Successful-turn completion p95 (seconds): 8.389493245</title>
+<circle cx="411.000" cy="529.069" r="5" fill="#9a6400" stroke="#9a6400" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-1.350000000-r0" data-value="17.768681605" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="1.35" data-repeat="0"><title>B/W1/rate-1.350000000-r0 | candidate | Successful-turn completion p95 (seconds): 17.768681605</title>
+<circle cx="531.400" cy="503.432" r="5" fill="#9a6400" stroke="#9a6400" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-1.350000000-r1" data-value="15.986885322" data-disposition="candidate" data-arm="B" data-workload="W1" data-rate="1.35" data-repeat="1"><title>B/W1/rate-1.350000000-r1 | candidate | Successful-turn completion p95 (seconds): 15.986885322</title>
+<circle cx="543.400" cy="508.303" r="5" fill="white" stroke="#9a6400" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W1/rate-4.050000000-r0" data-value="22.075502637" data-disposition="failed_drain" data-arm="B" data-workload="W1" data-rate="4.05" data-repeat="0"><title>B/W1/rate-4.050000000-r0 | failed_drain | Successful-turn completion p95 (seconds): 22.075502637</title>
+<path d="M645.800,485.660 L657.800,497.660 M657.800,485.660 L645.800,497.660" stroke="#b62424" stroke-width="2.5"/>
+</g>
+<g data-capture-id="C/W1/rate-0.050000000-r0" data-value="2.175349777" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="0.05" data-repeat="0"><title>C/W1/rate-0.050000000-r0 | candidate | Successful-turn completion p95 (seconds): 2.175349777</title>
+<circle cx="192.200" cy="546.054" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-0.150000000-r0" data-value="2.662352633" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="0.15" data-repeat="0"><title>C/W1/rate-0.150000000-r0 | candidate | Successful-turn completion p95 (seconds): 2.662352633</title>
+<circle cx="312.600" cy="544.723" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-0.450000000-r0" data-value="5.361221047" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="0.45" data-repeat="0"><title>C/W1/rate-0.450000000-r0 | candidate | Successful-turn completion p95 (seconds): 5.361221047</title>
+<circle cx="433.000" cy="537.346" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-1.350000000-r0" data-value="13.55359405" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="1.35" data-repeat="0"><title>C/W1/rate-1.350000000-r0 | candidate | Successful-turn completion p95 (seconds): 13.55359405</title>
+<circle cx="553.400" cy="514.954" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-1.350000000-r1" data-value="12.754099931" data-disposition="candidate" data-arm="C" data-workload="W1" data-rate="1.35" data-repeat="1"><title>C/W1/rate-1.350000000-r1 | candidate | Successful-turn completion p95 (seconds): 12.754099931</title>
+<circle cx="565.400" cy="517.139" r="5" fill="white" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W1/rate-4.050000000-r0" data-value="18.000204697" data-disposition="failed_drain" data-arm="C" data-workload="W1" data-rate="4.05" data-repeat="0"><title>C/W1/rate-4.050000000-r0 | failed_drain | Successful-turn completion p95 (seconds): 18.000204697</title>
+<path d="M667.800,496.799 L679.800,508.799 M679.800,496.799 L667.800,508.799" stroke="#b62424" stroke-width="2.5"/>
+</g>
+<g data-capture-id="A/W1/rate-1.350000000-r1-r3-split" data-value="2.963014064" data-disposition="cache_confounded_diagnostic" data-arm="A" data-workload="W1" data-rate="1.35" data-repeat="1"><title>A/W1/rate-1.350000000-r1-r3-split | cache_confounded_diagnostic | Successful-turn completion p95 (seconds): 2.963014064</title>
+<path d="M473.400,536.901 L480.400,549.901 L466.400,549.901 Z" fill="#7c2d8b" stroke="white" stroke-width="1"/>
+</g>
+<text x="463.4" y="531.901" font-size="12" fill="#7c2d8b" text-anchor="end" font-weight="bold">split</text>
+<text x="850" y="209" font-size="18" font-weight="bold">W2: four turns per conversation</text>
+<line x1="850.000" y1="552.000" x2="1452.000" y2="552.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="557.0" font-size="14" text-anchor="end">0</text>
+<line x1="850.000" y1="497.333" x2="1452.000" y2="497.333" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="502.333" font-size="14" text-anchor="end">20</text>
+<line x1="850.000" y1="442.667" x2="1452.000" y2="442.667" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="447.667" font-size="14" text-anchor="end">40</text>
+<line x1="850.000" y1="388.000" x2="1452.000" y2="388.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="393.0" font-size="14" text-anchor="end">60</text>
+<line x1="850.000" y1="333.333" x2="1452.000" y2="333.333" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="338.333" font-size="14" text-anchor="end">80</text>
+<line x1="850.000" y1="278.667" x2="1452.000" y2="278.667" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="283.667" font-size="14" text-anchor="end">100</text>
+<line x1="850.000" y1="224.000" x2="1452.000" y2="224.000" stroke="#d9e1e8" stroke-width="1"/>
+<text x="838" y="229.0" font-size="14" text-anchor="end">120</text>
+<line x1="850.000" y1="224.000" x2="850.000" y2="552.000" stroke="#617181" stroke-width="1"/>
+<line x1="850.000" y1="552.000" x2="1452.000" y2="552.000" stroke="#617181" stroke-width="1"/>
+<line x1="950.333" y1="552.000" x2="950.333" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="950.333" y="581" font-size="15" text-anchor="middle">0.02</text>
+<line x1="1151.000" y1="552.000" x2="1151.000" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="1151.0" y="581" font-size="15" text-anchor="middle">0.08</text>
+<line x1="1351.667" y1="552.000" x2="1351.667" y2="558.000" stroke="#617181" stroke-width="1"/>
+<text x="1351.667" y="581" font-size="15" text-anchor="middle">0.32</text>
+<text x="1151.0" y="611" font-size="15" text-anchor="middle">Offered conversations per second</text>
+<rect x="850" y="636" width="602" height="58" rx="4" fill="#f1f4f7"/>
+<text x="858" y="653" font-size="12" fill="#536577">Unavailable (no numeric Y value)</text>
+<g data-capture-id="A/W2/rate-0.020000000-r0" data-value="null" data-disposition="inconclusive_native_telemetry" data-arm="A" data-workload="W2" data-rate="0.02" data-repeat="0"><title>A/W2/rate-0.020000000-r0 | inconclusive_native_telemetry | p95 unavailable: 16 successful turns; 20 required</title>
+<rect x="907.333" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W2/rate-0.080000000-r0" data-value="5.644070111" data-disposition="candidate" data-arm="A" data-workload="W2" data-rate="0.08" data-repeat="0"><title>A/W2/rate-0.080000000-r0 | candidate | Successful-turn completion p95 (seconds): 5.644070111</title>
+<circle cx="1112.000" cy="536.573" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W2/rate-0.320000000-r0" data-value="17.751375796" data-disposition="candidate" data-arm="A" data-workload="W2" data-rate="0.32" data-repeat="0"><title>A/W2/rate-0.320000000-r0 | candidate | Successful-turn completion p95 (seconds): 17.751375796</title>
+<circle cx="1312.667" cy="503.480" r="5" fill="#1765a8" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="A/W2/rate-0.320000000-r1" data-value="17.55569152" data-disposition="candidate" data-arm="A" data-workload="W2" data-rate="0.32" data-repeat="1"><title>A/W2/rate-0.320000000-r1 | candidate | Successful-turn completion p95 (seconds): 17.55569152</title>
+<circle cx="1324.667" cy="504.014" r="5" fill="white" stroke="#1765a8" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W2/rate-0.020000000-r0" data-value="null" data-disposition="candidate" data-arm="D" data-workload="W2" data-rate="0.02" data-repeat="0"><title>D/W2/rate-0.020000000-r0 | candidate | p95 unavailable: 16 successful turns; 20 required</title>
+<rect x="929.333" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W2/rate-0.080000000-r0" data-value="10.960326732" data-disposition="candidate" data-arm="D" data-workload="W2" data-rate="0.08" data-repeat="0"><title>D/W2/rate-0.080000000-r0 | candidate | Successful-turn completion p95 (seconds): 10.960326732</title>
+<circle cx="1134.000" cy="522.042" r="5" fill="#20845a" stroke="#20845a" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W2/rate-0.320000000-r0" data-value="87.43142818" data-disposition="candidate" data-arm="D" data-workload="W2" data-rate="0.32" data-repeat="0"><title>D/W2/rate-0.320000000-r0 | candidate | Successful-turn completion p95 (seconds): 87.43142818</title>
+<circle cx="1334.667" cy="313.021" r="5" fill="#20845a" stroke="#20845a" stroke-width="2"/>
+</g>
+<g data-capture-id="D/W2/rate-0.320000000-r1" data-value="107.765209577" data-disposition="candidate" data-arm="D" data-workload="W2" data-rate="0.32" data-repeat="1"><title>D/W2/rate-0.320000000-r1 | candidate | Successful-turn completion p95 (seconds): 107.765209577</title>
+<circle cx="1346.667" cy="257.442" r="5" fill="white" stroke="#20845a" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W2/rate-0.020000000-r0" data-value="null" data-disposition="candidate" data-arm="B" data-workload="W2" data-rate="0.02" data-repeat="0"><title>B/W2/rate-0.020000000-r0 | candidate | p95 unavailable: 16 successful turns; 20 required</title>
+<rect x="951.333" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W2/rate-0.080000000-r0" data-value="8.472873364" data-disposition="candidate" data-arm="B" data-workload="W2" data-rate="0.08" data-repeat="0"><title>B/W2/rate-0.080000000-r0 | candidate | Successful-turn completion p95 (seconds): 8.472873364</title>
+<circle cx="1156.000" cy="528.841" r="5" fill="#9a6400" stroke="#9a6400" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W2/rate-0.320000000-r0" data-value="34.041958909" data-disposition="candidate" data-arm="B" data-workload="W2" data-rate="0.32" data-repeat="0"><title>B/W2/rate-0.320000000-r0 | candidate | Successful-turn completion p95 (seconds): 34.041958909</title>
+<circle cx="1356.667" cy="458.952" r="5" fill="#9a6400" stroke="#9a6400" stroke-width="2"/>
+</g>
+<g data-capture-id="B/W2/rate-0.320000000-r1" data-value="27.095900834" data-disposition="candidate" data-arm="B" data-workload="W2" data-rate="0.32" data-repeat="1"><title>B/W2/rate-0.320000000-r1 | candidate | Successful-turn completion p95 (seconds): 27.095900834</title>
+<circle cx="1368.667" cy="477.938" r="5" fill="white" stroke="#9a6400" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W2/rate-0.020000000-r0" data-value="null" data-disposition="candidate" data-arm="C" data-workload="W2" data-rate="0.02" data-repeat="0"><title>C/W2/rate-0.020000000-r0 | candidate | p95 unavailable: 16 successful turns; 20 required</title>
+<rect x="973.333" y="672.000" width="8" height="8" fill="#718096" stroke="#718096" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W2/rate-0.080000000-r0" data-value="5.93534214" data-disposition="candidate" data-arm="C" data-workload="W2" data-rate="0.08" data-repeat="0"><title>C/W2/rate-0.080000000-r0 | candidate | Successful-turn completion p95 (seconds): 5.93534214</title>
+<circle cx="1178.000" cy="535.777" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W2/rate-0.320000000-r0" data-value="19.608237102" data-disposition="candidate" data-arm="C" data-workload="W2" data-rate="0.32" data-repeat="0"><title>C/W2/rate-0.320000000-r0 | candidate | Successful-turn completion p95 (seconds): 19.608237102</title>
+<circle cx="1378.667" cy="498.404" r="5" fill="#d15e26" stroke="#d15e26" stroke-width="2"/>
+</g>
+<g data-capture-id="C/W2/rate-0.320000000-r1" data-value="15.561702253" data-disposition="candidate" data-arm="C" data-workload="W2" data-rate="0.32" data-repeat="1"><title>C/W2/rate-0.320000000-r1 | candidate | Successful-turn completion p95 (seconds): 15.561702253</title>
+<circle cx="1390.667" cy="509.465" r="5" fill="white" stroke="#d15e26" stroke-width="2"/>
+</g>
+<text x="27" y="388.0" font-size="16" transform="rotate(-90 27 388)" text-anchor="middle">Successful-turn completion p95 (seconds)</text>
+<text x="50" y="728" font-size="14">p95 uses successful turns only, including at failed rates; nearest-rank p95 requires at least 20 successful turns.</text>
+<text x="50" y="753" font-size="14">W2 at 0.02 has 16 successful turns per arm, so all four p95 values are unavailable. Turns within conversations are correlated.</text>
+<text x="50" y="778" font-size="14">W1 and W2 have variable prompt lengths. The split diagnostic has unmatched cache state; maximum sustainable rates remain unestablished.</text>
+<text x="50" y="803" font-size="14">All numeric marks use the shared Y scale. Unavailable marks have no numeric value; horizontal position identifies offered rate and arm.</text>
+</svg>

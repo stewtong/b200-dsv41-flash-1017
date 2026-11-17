@@ -44,6 +44,10 @@ Tested request counts were 1, 2, 4, 8, 16, 32, 64 and 128. Cold requests generat
 
 Natural-stop answers were short: 3 to 16 tokens per single request and 29 to 103 tokens per eight-request group, so those ratios reflect prefill, first output and cache history more than sustained decoding, and they count tokens from incorrect answers. The one-second limit is one of four predeclared limits; at 5, 15 and 60 seconds the ratio was 1.008×. The load panel cycled ten underlying questions, and K5 completed all 360 arrivals per window against NoSpec's 357, so the unrestricted rate is capped by the offered load. The [validation report](results/finalist-validation/report.md) and [tuning report](results/tuning-adaptation/README.md) give the full tables. The same tuning screens rejected one CUDA graph capture-size configuration on `2xtp4` and a 16,384-token prefill budget on `dep8`; the budget improved single-request first output by 6.0% at 128K and 21.6% at 256K but missed the predeclared 10% requirement at both lengths.
 
+### K5 acceptance stayed above 2.7 across the sustained-load trials
+
+The [multi-turn load report](results/sustained-speculation-layouts/report.md) covers 39 core windows across 2xTP4 and DEP8, with K5 on and off. K5 acceptance ranged from 2.707 to 2.864 in W1 and 2.964 to 3.126 in W2. Actual prompts span 45K to 118K and 219K to 445K tokens, respectively; every turn requests 400 output tokens. Four rates failed their drain, and a cache-confounded client control leaves maximum sustainable rates unqualified. NVIDIA's [Dynamo recipe](https://docs.nvidia.com/dynamo/dev/recipes/deepseek-v4-1-flash) publishes 990.57 output tok/s/GPU for 64K/400 on 2xTP4 with K3 at concurrency 168; different prompt lengths, backends/KV, scheduling, routing, revisions and demand protocols prevent a direct speedup ratio.
+
 ## What was measured
 
 | Layout | Engines | GPUs per engine | Parallelism per engine | Attention backend | KV cache format |
@@ -61,6 +65,7 @@ All layouts and both K5 arms used the pinned image `vllm/vllm-openai@sha256:aeb5
 | [1M-input supplement](results/context-1m-output2048/report.md) | 1M input with 2,048 output tokens; the main comparison used 512 at 1M | 44 cells, 132 repetitions, 3,552 requests |
 | [Tuning screens](results/tuning-adaptation/README.md) | DSpark K5, graph capture and prefill budget against matched baselines, fixed 2,048-token output | 12 comparisons, 72 repetitions, 324 requests |
 | [K5 validation](results/finalist-validation/README.md) | K5 against NoSpec on `2xtp4`: natural-stop bursts, open-loop load, quality panel | Captured November 8 to 9, 2026 |
+| [Sustained-load follow-on](results/sustained-speculation-layouts/report.md) | 2xTP4/DEP8, K5 on/off, broad W1/W2 multi-turn inputs, 400 forced output tokens | 39 core windows and one diagnostic; acceptance and finite-window latency; capacity unqualified |
 
 Measured requests were streamed Chat Completions with temperature and top-p at 1.0. The layout comparison disabled thinking; the K5 quality and load panels include separate thinking-disabled and thinking-enabled profiles. The [comparison contract](docs/comparison-contract.md) defines every metric and timing boundary.
 

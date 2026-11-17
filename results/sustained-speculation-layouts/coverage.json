@@ -1,0 +1,421 @@
+{
+  "schema": "sustained-public-coverage/v2",
+  "status": "closed",
+  "all_scientific_inputs_closed": true,
+  "entries": [
+    {
+      "id": "A/W1/rate-0.050000000-r0-v2",
+      "arm": "A",
+      "workload": "W1",
+      "rate": 0.05,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.050000000-r0-v2"
+    },
+    {
+      "id": "A/W1/rate-0.150000000-r0-per-rate-v2",
+      "arm": "A",
+      "workload": "W1",
+      "rate": 0.15,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.150000000-r0-per-rate-v2"
+    },
+    {
+      "id": "A/W1/rate-0.450000000-r0",
+      "arm": "A",
+      "workload": "W1",
+      "rate": 0.45,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.450000000-r0"
+    },
+    {
+      "id": "A/W1/rate-1.350000000-r0",
+      "arm": "A",
+      "workload": "W1",
+      "rate": 1.35,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-1.350000000-r0"
+    },
+    {
+      "id": "A/W1/rate-1.350000000-r1-r3-split",
+      "arm": "A",
+      "workload": "W1",
+      "rate": 1.35,
+      "repeat": 1,
+      "disposition": "cache_confounded_diagnostic",
+      "cell": "rate-1.350000000-r1-r3-split"
+    },
+    {
+      "id": "A/W1/rate-1.350000000-r1",
+      "arm": "A",
+      "workload": "W1",
+      "rate": 1.35,
+      "repeat": 1,
+      "disposition": "candidate",
+      "cell": "rate-1.350000000-r1"
+    },
+    {
+      "id": "A/W1/rate-4.050000000-r0",
+      "arm": "A",
+      "workload": "W1",
+      "rate": 4.05,
+      "repeat": 0,
+      "disposition": "failed_drain",
+      "cell": "rate-4.050000000-r0"
+    },
+    {
+      "id": "D/W1/rate-0.050000000-r0",
+      "arm": "D",
+      "workload": "W1",
+      "rate": 0.05,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.050000000-r0"
+    },
+    {
+      "id": "D/W1/rate-0.150000000-r0-per-rate-profile-v2",
+      "arm": "D",
+      "workload": "W1",
+      "rate": 0.15,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.150000000-r0-per-rate-profile-v2"
+    },
+    {
+      "id": "D/W1/rate-0.450000000-r0",
+      "arm": "D",
+      "workload": "W1",
+      "rate": 0.45,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.450000000-r0"
+    },
+    {
+      "id": "D/W1/rate-0.450000000-r1",
+      "arm": "D",
+      "workload": "W1",
+      "rate": 0.45,
+      "repeat": 1,
+      "disposition": "candidate",
+      "cell": "rate-0.450000000-r1"
+    },
+    {
+      "id": "D/W1/rate-1.350000000-r0-per-rate-profile-v3",
+      "arm": "D",
+      "workload": "W1",
+      "rate": 1.35,
+      "repeat": 0,
+      "disposition": "failed_drain",
+      "cell": "rate-1.350000000-r0-per-rate-profile-v3"
+    },
+    {
+      "id": "B/W1/rate-0.050000000-r0",
+      "arm": "B",
+      "workload": "W1",
+      "rate": 0.05,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.050000000-r0"
+    },
+    {
+      "id": "B/W1/rate-0.150000000-r0",
+      "arm": "B",
+      "workload": "W1",
+      "rate": 0.15,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.150000000-r0"
+    },
+    {
+      "id": "B/W1/rate-0.450000000-r0",
+      "arm": "B",
+      "workload": "W1",
+      "rate": 0.45,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.450000000-r0"
+    },
+    {
+      "id": "B/W1/rate-1.350000000-r0",
+      "arm": "B",
+      "workload": "W1",
+      "rate": 1.35,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-1.350000000-r0"
+    },
+    {
+      "id": "B/W1/rate-1.350000000-r1",
+      "arm": "B",
+      "workload": "W1",
+      "rate": 1.35,
+      "repeat": 1,
+      "disposition": "candidate",
+      "cell": "rate-1.350000000-r1"
+    },
+    {
+      "id": "B/W1/rate-4.050000000-r0",
+      "arm": "B",
+      "workload": "W1",
+      "rate": 4.05,
+      "repeat": 0,
+      "disposition": "failed_drain",
+      "cell": "rate-4.050000000-r0"
+    },
+    {
+      "id": "C/W1/rate-0.050000000-r0",
+      "arm": "C",
+      "workload": "W1",
+      "rate": 0.05,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.050000000-r0"
+    },
+    {
+      "id": "C/W1/rate-0.150000000-r0",
+      "arm": "C",
+      "workload": "W1",
+      "rate": 0.15,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.150000000-r0"
+    },
+    {
+      "id": "C/W1/rate-0.450000000-r0",
+      "arm": "C",
+      "workload": "W1",
+      "rate": 0.45,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.450000000-r0"
+    },
+    {
+      "id": "C/W1/rate-1.350000000-r0",
+      "arm": "C",
+      "workload": "W1",
+      "rate": 1.35,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-1.350000000-r0"
+    },
+    {
+      "id": "C/W1/rate-1.350000000-r1",
+      "arm": "C",
+      "workload": "W1",
+      "rate": 1.35,
+      "repeat": 1,
+      "disposition": "candidate",
+      "cell": "rate-1.350000000-r1"
+    },
+    {
+      "id": "C/W1/rate-4.050000000-r0",
+      "arm": "C",
+      "workload": "W1",
+      "rate": 4.05,
+      "repeat": 0,
+      "disposition": "failed_drain",
+      "cell": "rate-4.050000000-r0"
+    },
+    {
+      "id": "A/W2/rate-0.020000000-r0",
+      "arm": "A",
+      "workload": "W2",
+      "rate": 0.02,
+      "repeat": 0,
+      "disposition": "inconclusive_native_telemetry",
+      "cell": "rate-0.020000000-r0"
+    },
+    {
+      "id": "A/W2/rate-0.080000000-r0",
+      "arm": "A",
+      "workload": "W2",
+      "rate": 0.08,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.080000000-r0"
+    },
+    {
+      "id": "A/W2/rate-0.320000000-r0",
+      "arm": "A",
+      "workload": "W2",
+      "rate": 0.32,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.320000000-r0"
+    },
+    {
+      "id": "A/W2/rate-0.320000000-r1",
+      "arm": "A",
+      "workload": "W2",
+      "rate": 0.32,
+      "repeat": 1,
+      "disposition": "candidate",
+      "cell": "rate-0.320000000-r1"
+    },
+    {
+      "id": "D/W2/rate-0.020000000-r0",
+      "arm": "D",
+      "workload": "W2",
+      "rate": 0.02,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.020000000-r0"
+    },
+    {
+      "id": "D/W2/rate-0.080000000-r0",
+      "arm": "D",
+      "workload": "W2",
+      "rate": 0.08,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.080000000-r0"
+    },
+    {
+      "id": "D/W2/rate-0.320000000-r0",
+      "arm": "D",
+      "workload": "W2",
+      "rate": 0.32,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.320000000-r0"
+    },
+    {
+      "id": "D/W2/rate-0.320000000-r1",
+      "arm": "D",
+      "workload": "W2",
+      "rate": 0.32,
+      "repeat": 1,
+      "disposition": "candidate",
+      "cell": "rate-0.320000000-r1"
+    },
+    {
+      "id": "B/W2/rate-0.020000000-r0",
+      "arm": "B",
+      "workload": "W2",
+      "rate": 0.02,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.020000000-r0"
+    },
+    {
+      "id": "B/W2/rate-0.080000000-r0",
+      "arm": "B",
+      "workload": "W2",
+      "rate": 0.08,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.080000000-r0"
+    },
+    {
+      "id": "B/W2/rate-0.320000000-r0",
+      "arm": "B",
+      "workload": "W2",
+      "rate": 0.32,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.320000000-r0"
+    },
+    {
+      "id": "B/W2/rate-0.320000000-r1",
+      "arm": "B",
+      "workload": "W2",
+      "rate": 0.32,
+      "repeat": 1,
+      "disposition": "candidate",
+      "cell": "rate-0.320000000-r1"
+    },
+    {
+      "id": "C/W2/rate-0.020000000-r0",
+      "arm": "C",
+      "workload": "W2",
+      "rate": 0.02,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.020000000-r0"
+    },
+    {
+      "id": "C/W2/rate-0.080000000-r0",
+      "arm": "C",
+      "workload": "W2",
+      "rate": 0.08,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.080000000-r0"
+    },
+    {
+      "id": "C/W2/rate-0.320000000-r0",
+      "arm": "C",
+      "workload": "W2",
+      "rate": 0.32,
+      "repeat": 0,
+      "disposition": "candidate",
+      "cell": "rate-0.320000000-r0"
+    },
+    {
+      "id": "C/W2/rate-0.320000000-r1",
+      "arm": "C",
+      "workload": "W2",
+      "rate": 0.32,
+      "repeat": 1,
+      "disposition": "candidate",
+      "cell": "rate-0.320000000-r1"
+    },
+    {
+      "id": "D/W1/rate-4.050000000-r0",
+      "arm": "D",
+      "workload": "W1",
+      "rate": 4.05,
+      "repeat": 0,
+      "disposition": "failure_stopped_unmeasured",
+      "cell": "rate-4.050000000-r0"
+    },
+    {
+      "id": "A/optional-final-temporal-drift",
+      "arm": "A",
+      "workload": "W1/W2",
+      "rate": null,
+      "repeat": null,
+      "disposition": "optional_drift_omitted_temporal_stability_unresolved",
+      "cell": ""
+    },
+    {
+      "id": "B/initial-invalid-deployment",
+      "arm": "B",
+      "workload": "initial",
+      "rate": null,
+      "repeat": null,
+      "disposition": "invalid_deployment_attempt",
+      "cell": ""
+    },
+    {
+      "id": "C/initial-invalid-deployment-startup-timeout",
+      "arm": "C",
+      "workload": "initial",
+      "rate": null,
+      "repeat": null,
+      "disposition": "invalid_deployment_startup_timeout_zero_scored_windows",
+      "cell": ""
+    },
+    {
+      "id": "A-W1-0.150000000-r0-first-shape-attempt",
+      "arm": "A",
+      "workload": "",
+      "rate": null,
+      "repeat": null,
+      "disposition": "excluded_diagnostic",
+      "cell": "A-W1-0.150000000-r0-first-shape-attempt"
+    },
+    {
+      "id": "A-W1-0.050000000-r0-first-shape-diagnostic",
+      "arm": "A",
+      "workload": "",
+      "rate": null,
+      "repeat": null,
+      "disposition": "excluded_diagnostic",
+      "cell": "A-W1-0.050000000-r0-first-shape-diagnostic"
+    }
+  ]
+}

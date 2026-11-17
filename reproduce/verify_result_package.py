@@ -124,6 +124,9 @@ def verify(root):
         module.ROOT = root
         module.DATA = root / 'data'
         return module.main()
+    if root.name == 'sustained-speculation-layouts':
+        import verify_sustained_speculation
+        return verify_sustained_speculation.verify(root)
     raise ValueError('unknown result package')
 
 
