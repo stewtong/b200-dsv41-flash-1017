@@ -18,6 +18,8 @@
 !/results/context-1m-output2048/
 !/results/tuning-adaptation/
 !/results/finalist-validation/
+!/results/sustained-speculation-layouts/
+!/results/capacity-at-latency-target/
 
 # Runtime captures, incident evidence, archives and credentials.
 __pycache__/

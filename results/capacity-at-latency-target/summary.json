@@ -1,0 +1,24 @@
+{
+  "schema": "capacity-at-latency-target-public/v1",
+  "target": {
+    "completion_p95_seconds_max": 30,
+    "first_output_p95_seconds_max": 10
+  },
+  "windows": 64,
+  "unit_rows": 128,
+  "node_verdicts": 46,
+  "windows_by_part": {
+    "K5 vs NoSpec": 18,
+    "capacity ladder": 14,
+    "dep8 K5": 18,
+    "midpoint": 14
+  },
+  "highest_all_passing_measured_arrivals_per_node": {
+    "W1": 0.5444,
+    "W2": 0.2667
+  },
+  "nospec_limit": null,
+  "dep8_any_load_all_runs_pass": false,
+  "measured_arrivals_definition": "conversations whose first turn is scheduled in the 360 s measured period, divided by 360",
+  "private_retention": "Raw request records, engine telemetry and logs are retained privately with per-file SHA-256 hashes."
+}

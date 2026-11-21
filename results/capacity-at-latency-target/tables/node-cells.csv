@@ -1,0 +1,47 @@
+window,study_part,workload,rate_label_per_stream,repeat,configuration,measured_conversations_node,measured_arrivals_per_second_node,input_tokens_per_second_node,node_completion_p95_s,dep8_pooled_first_output_p95_s,dep8_pooled_drained,pass,usable
+A,capacity ladder,W1,0.15,0,2xtp4 K5,126,0.35,183294.0,19.798,,,True,True
+A,midpoint,W1,0.269,0,2xtp4 K5,196,0.5444,279856.0,26.732,,,True,True
+A,midpoint,W1,0.2745,0,2xtp4 K5,194,0.5389,277172.0,26.565,,,True,True
+A,midpoint,W1,0.275,0,2xtp4 K5,192,0.5333,275779.0,27.275,,,True,True
+A,midpoint,W1,0.289,0,2xtp4 K5,208,0.5778,297442.0,30.464,,,False,True
+A,midpoint,W1,0.292,0,2xtp4 K5,208,0.5778,299280.0,27.77,,,True,True
+A,midpoint,W1,0.2935,0,2xtp4 K5,206,0.5722,294733.0,29.664,,,False,True
+A,capacity ladder,W1,0.3,0,2xtp4 K5,194,0.5389,284166.0,27.469,,,True,True
+A,capacity ladder,W1,0.3,1,2xtp4 K5,194,0.5389,284166.0,28.181,,,True,True
+A,capacity ladder,W1,0.3,2,2xtp4 K5,194,0.5389,284166.0,28.879,,,True,True
+A,capacity ladder,W1,0.45,0,2xtp4 K5,382,1.0611,559543.0,,,,False,True
+A,capacity ladder,W1,0.45,1,2xtp4 K5,382,1.0611,559543.0,,,,False,True
+A,capacity ladder,W1,0.45,2,2xtp4 K5,382,1.0611,559543.0,,,,False,True
+A,capacity ladder,W2,0.08,0,2xtp4 K5,58,0.1611,169753.0,18.392,,,True,True
+A,midpoint,W2,0.1145,0,2xtp4 K5,80,0.2222,232815.0,21.363,,,True,True
+A,capacity ladder,W2,0.12,0,2xtp4 K5,76,0.2111,219468.0,27.097,,,True,True
+A,capacity ladder,W2,0.12,1,2xtp4 K5,76,0.2111,219468.0,22.568,,,True,True
+A,capacity ladder,W2,0.12,2,2xtp4 K5,76,0.2111,219468.0,24.822,,,True,True
+A,midpoint,W2,0.124,0,2xtp4 K5,92,0.2556,266632.0,26.69,,,True,True
+A,midpoint,W2,0.131,0,2xtp4 K5,98,0.2722,283901.0,27.827,,,True,True
+A,midpoint,W2,0.144,0,2xtp4 K5,96,0.2667,278344.0,28.73,,,True,True
+A,midpoint,W2,0.1455,0,2xtp4 K5,108,0.3,310476.0,40.457,,,False,True
+A,midpoint,W2,0.1475,0,2xtp4 K5,98,0.2722,283896.0,30.904,,,False,True
+A,midpoint,W2,0.1525,0,2xtp4 K5,108,0.3,312192.0,35.557,,,False,True
+A,midpoint,W2,0.154,0,2xtp4 K5,108,0.3,312122.0,29.861,,,False,True
+A,capacity ladder,W2,0.16,0,2xtp4 K5,134,0.3722,386965.0,44.747,,,False,True
+A,capacity ladder,W2,0.16,1,2xtp4 K5,134,0.3722,386965.0,44.93,,,False,True
+A,capacity ladder,W2,0.16,2,2xtp4 K5,134,0.3722,386965.0,45.37,,,False,True
+B,dep8 K5,W1,0.15,0,dep8 K5,126,0.35,183294.0,30.331,1.204,True,False,True
+B,dep8 K5,W1,0.15,1,dep8 K5,126,0.35,183294.0,30.109,1.07,True,False,True
+B,dep8 K5,W1,0.15,2,dep8 K5,126,0.35,183294.0,29.509,1.083,True,True,True
+B,dep8 K5,W1,0.3,0,dep8 K5,194,0.5389,284166.0,58.025,1.426,False,False,True
+B,dep8 K5,W1,0.3,1,dep8 K5,194,0.5389,284166.0,60.73,1.515,False,False,True
+B,dep8 K5,W1,0.3,2,dep8 K5,194,0.5389,284166.0,59.903,1.442,False,False,True
+B,dep8 K5,W1,0.45,0,dep8 K5,382,1.0611,559543.0,,,False,False,True
+B,dep8 K5,W1,0.45,1,dep8 K5,382,1.0611,559543.0,,,False,False,True
+B,dep8 K5,W1,0.45,2,dep8 K5,382,1.0611,559543.0,,,False,False,True
+B,dep8 K5,W2,0.08,0,dep8 K5,58,0.1611,169753.0,47.021,4.921,True,False,True
+B,dep8 K5,W2,0.08,1,dep8 K5,58,0.1611,169753.0,40.512,4.886,True,False,True
+B,dep8 K5,W2,0.08,2,dep8 K5,58,0.1611,169753.0,43.22,5.204,True,False,True
+B,dep8 K5,W2,0.12,0,dep8 K5,76,0.2111,219468.0,57.527,5.442,True,False,True
+B,dep8 K5,W2,0.12,1,dep8 K5,76,0.2111,219468.0,51.153,5.328,True,False,True
+B,dep8 K5,W2,0.12,2,dep8 K5,76,0.2111,219468.0,72.136,5.54,True,False,True
+B,dep8 K5,W2,0.16,0,dep8 K5,134,0.3722,386965.0,,,False,False,True
+B,dep8 K5,W2,0.16,1,dep8 K5,134,0.3722,386965.0,116.213,6.019,False,False,True
+B,dep8 K5,W2,0.16,2,dep8 K5,134,0.3722,386965.0,,,False,False,True

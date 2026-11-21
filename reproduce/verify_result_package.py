@@ -127,6 +127,9 @@ def verify(root):
     if root.name == 'sustained-speculation-layouts':
         import verify_sustained_speculation
         return verify_sustained_speculation.verify(root)
+    if root.name == 'capacity-at-latency-target':
+        import verify_capacity_target
+        return verify_capacity_target.verify(root)
     raise ValueError('unknown result package')
 
 

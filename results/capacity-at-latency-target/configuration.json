@@ -1,0 +1,348 @@
+{
+  "schema": "load-sweep-public-configuration/v1",
+  "hardware": "8 NVIDIA B200 GPUs, one node",
+  "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "model_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "tokenizer_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "image_digest": "vllm/vllm-openai@sha256:aeb580d55ee3dcccd7b5c78d7871326f367bee5cfd8ca8e411c253d7983a0046",
+  "vllm_build_commit": "e0d00e4b8eb0c89ec30921d0695cfdd409e9c211",
+  "cuda_version": "13.0.2",
+  "configurations": {
+    "2xtp4 K5": {
+      "engines": [
+        {
+          "gpus": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "server_cpus": "8-79,88-159",
+          "serving_arguments": [
+            "serve",
+            "--model",
+            "/model",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            "8000",
+            "--language-model-only",
+            "--tokenizer-mode",
+            "deepseek_v41",
+            "--tensor-parallel-size",
+            "4",
+            "--kv-cache-dtype",
+            "fp8",
+            "--max-model-len",
+            "1048576",
+            "--max-num-seqs",
+            "64",
+            "--max-num-batched-tokens",
+            "8192",
+            "--enable-chunked-prefill",
+            "--gpu-memory-utilization",
+            "0.90",
+            "--enable-prefix-caching",
+            "--reasoning-parser",
+            "deepseek_v41",
+            "--tool-call-parser",
+            "deepseek_v41",
+            "--enable-auto-tool-choice",
+            "--compilation-config",
+            "{\"mode\":\"VLLM_COMPILE\",\"cudagraph_mode\":\"FULL_AND_PIECEWISE\"}",
+            "--engram-config",
+            "{\"cpu_offload\":true}",
+            "--attention-config",
+            "{\"backend\":\"FLASHINFER_MLA_SPARSE_DSV41\",\"indexer_kv_dtype\":\"mxfp4\",\"indexer_sparse_logits\":true}",
+            "--per-request-spec-decode-metrics",
+            "detailed",
+            "--speculative-config",
+            "{\"draft_sample_method\":\"probabilistic\",\"enable_adaptive_verification\":false,\"method\":\"dspark\",\"num_speculative_tokens\":5,\"rejection_sample_method\":\"block\"}",
+            "--enable-scale-out"
+          ],
+          "gpu_kv_cache_tokens_per_engine_core": 40819149
+        },
+        {
+          "gpus": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "server_cpus": "8-79,88-159",
+          "serving_arguments": [
+            "serve",
+            "--model",
+            "/model",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            "8000",
+            "--language-model-only",
+            "--tokenizer-mode",
+            "deepseek_v41",
+            "--tensor-parallel-size",
+            "4",
+            "--kv-cache-dtype",
+            "fp8",
+            "--max-model-len",
+            "1048576",
+            "--max-num-seqs",
+            "64",
+            "--max-num-batched-tokens",
+            "8192",
+            "--enable-chunked-prefill",
+            "--gpu-memory-utilization",
+            "0.90",
+            "--enable-prefix-caching",
+            "--reasoning-parser",
+            "deepseek_v41",
+            "--tool-call-parser",
+            "deepseek_v41",
+            "--enable-auto-tool-choice",
+            "--compilation-config",
+            "{\"mode\":\"VLLM_COMPILE\",\"cudagraph_mode\":\"FULL_AND_PIECEWISE\"}",
+            "--engram-config",
+            "{\"cpu_offload\":true}",
+            "--attention-config",
+            "{\"backend\":\"FLASHINFER_MLA_SPARSE_DSV41\",\"indexer_kv_dtype\":\"mxfp4\",\"indexer_sparse_logits\":true}",
+            "--per-request-spec-decode-metrics",
+            "detailed",
+            "--speculative-config",
+            "{\"draft_sample_method\":\"probabilistic\",\"enable_adaptive_verification\":false,\"method\":\"dspark\",\"num_speculative_tokens\":5,\"rejection_sample_method\":\"block\"}",
+            "--enable-scale-out"
+          ],
+          "gpu_kv_cache_tokens_per_engine_core": 40819149
+        }
+      ],
+      "routing": "No router: each load stream targets one replica directly; the two replicas receive paired streams with identical inputs and seeds"
+    },
+    "2xtp4 NoSpec (Window A+, replica 1 only)": {
+      "engines": [
+        {
+          "gpus": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "server_cpus": "8-79,88-159",
+          "serving_arguments": [
+            "serve",
+            "--model",
+            "/model",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            "8000",
+            "--language-model-only",
+            "--tokenizer-mode",
+            "deepseek_v41",
+            "--tensor-parallel-size",
+            "4",
+            "--kv-cache-dtype",
+            "fp8",
+            "--max-model-len",
+            "1048576",
+            "--max-num-seqs",
+            "64",
+            "--max-num-batched-tokens",
+            "8192",
+            "--enable-chunked-prefill",
+            "--gpu-memory-utilization",
+            "0.90",
+            "--enable-prefix-caching",
+            "--reasoning-parser",
+            "deepseek_v41",
+            "--tool-call-parser",
+            "deepseek_v41",
+            "--enable-auto-tool-choice",
+            "--compilation-config",
+            "{\"mode\":\"VLLM_COMPILE\",\"cudagraph_mode\":\"FULL_AND_PIECEWISE\"}",
+            "--engram-config",
+            "{\"cpu_offload\":true}",
+            "--attention-config",
+            "{\"backend\":\"FLASHINFER_MLA_SPARSE_DSV41\",\"indexer_kv_dtype\":\"mxfp4\",\"indexer_sparse_logits\":true}",
+            "--enable-scale-out",
+            "--num-gpu-blocks-override",
+            "399442"
+          ],
+          "gpu_kv_cache_tokens_per_engine_core": 40819149,
+          "note": "--num-gpu-blocks-override 399442 sets KV capacity equal to the K5 engine's 40,819,149 tokens; without it the engine would allocate 437,455 blocks"
+        }
+      ],
+      "routing": "Paired with K5 on replica 0: same inputs and seeds, run at the same time"
+    },
+    "dep8 K5": {
+      "engines": [
+        {
+          "gpus": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "server_cpus": "8-79,88-159",
+          "serving_arguments": [
+            "serve",
+            "--model",
+            "/model",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            "8000",
+            "--language-model-only",
+            "--tokenizer-mode",
+            "deepseek_v41",
+            "--tensor-parallel-size",
+            "1",
+            "--kv-cache-dtype",
+            "fp8_ds_mla",
+            "--max-model-len",
+            "1048576",
+            "--max-num-seqs",
+            "128",
+            "--max-num-batched-tokens",
+            "8192",
+            "--enable-chunked-prefill",
+            "--gpu-memory-utilization",
+            "0.90",
+            "--enable-prefix-caching",
+            "--reasoning-parser",
+            "deepseek_v41",
+            "--tool-call-parser",
+            "deepseek_v41",
+            "--enable-auto-tool-choice",
+            "--compilation-config",
+            "{\"mode\":\"VLLM_COMPILE\",\"cudagraph_mode\":\"FULL_AND_PIECEWISE\"}",
+            "--engram-config",
+            "{\"cpu_offload\":true,\"embedding_across_dp\":true}",
+            "--attention-config",
+            "{\"backend\":\"FLASHMLA_MEGA_ATTN_DSV41\",\"indexer_kv_dtype\":\"mxfp4\",\"indexer_sparse_logits\":true}",
+            "--data-parallel-size",
+            "8",
+            "--data-parallel-size-local",
+            "8",
+            "--enable-expert-parallel",
+            "--kernel-config",
+            "{\"enable_flashinfer_autotune\":true,\"moe_backend\":\"deep_gemm_mega_moe\"}",
+            "--speculative-config",
+            "{\"draft_sample_method\":\"probabilistic\",\"enable_adaptive_verification\":false,\"method\":\"dspark\",\"num_speculative_tokens\":5,\"rejection_sample_method\":\"block\"}"
+          ],
+          "gpu_kv_cache_tokens_per_engine_core": "54,604,843 to 54,614,755 per data-parallel rank"
+        }
+      ],
+      "routing": "Two load streams with distinct cache namespaces and request IDs share the one engine; vLLM data-parallel scheduling places requests"
+    }
+  },
+  "kv_capacity_source": "GPU KV cache size in tokens as printed by each engine at startup (vLLM kv_cache_utils log line)",
+  "image_note": "DSpark, --engram-config, --enable-scale-out, --per-request-spec-decode-metrics and the DSV41 attention backends are used as shipped in the pinned nightly image; their status in released vLLM is not tracked here",
+  "producer_code_sha256": {
+    "client/replay.py": "1929b4e9ee09c34f6da8e3aa2824d3aa0a633bf568fbbea922d6231fdaab556d",
+    "client/stream.py": "43b9160b81db089c0790ddb3c3f20753e4c077692c298ebfd6763a9d22efa2ac",
+    "client/workload.py": "69764090584aae067cd46a9f9ecdaeb96a28532f6bb261a88953d1ea5417608d",
+    "driver/run_sweep.py": "ae4dc5efe48194ea102b11c3004543574668e195cf8ccb64a3dacc781852aec9",
+    "driver/midpoint.py": "fdd8aaa9aa9aaf29a74c694089d002a52fc692b3de31b7fe09499ebc9b0c2093",
+    "note": "All 128 measured units recorded the same three client hashes. Producer code is retained privately."
+  },
+  "trace_replay_control": {
+    "tool": "vllm bench serve from the pinned image",
+    "dataset_name": "timed_trace",
+    "prompt_construction": "TimedTrace._sample_token in vllm/benchmarks/datasets/datasets.py samples token IDs uniformly from the vocabulary (special tokens removed) for each prefix-hash chunk",
+    "endpoint": "/v1/completions (no chat template, thinking, or tools)",
+    "ignore_eos": true,
+    "output_lengths": "taken from the trace",
+    "temperature_top_p": "not set by the client (server defaults)",
+    "timed_trace_chunk_hash_size": 512,
+    "timed_trace_sec_multiplier": [
+      1.0,
+      0.5
+    ],
+    "seed": 20261120,
+    "target": "replica 0 only (one TP4 K5 engine)",
+    "trace_source": "a private 15-minute trace of request timings, prompt and output lengths and prefix-hash IDs; not published"
+  },
+  "speculative_decoding": "DSpark static K5: five draft tokens per step, adaptive verification disabled, probabilistic draft sampling, block rejection sampling",
+  "client_cpus": "0-7,80-87 reserved for clients (server CPUs listed per engine)",
+  "measurement": {
+    "warmup_seconds": 60,
+    "measured_arrival_seconds": 360,
+    "drain_limit_seconds": 120,
+    "arrivals": "Turn 0 of each conversation is sent open-loop on a Poisson schedule; later turns of a conversation are sent back-to-back after the previous turn completes",
+    "measured_population": "Conversations whose first turn is scheduled in the 360 s measured period; all their turns count, including turns finishing during drain",
+    "measured_arrivals": "Measured conversations / 360 s, from the realized arrival schedule, reported per stream and per node; the generator's rate label is kept only as an identifier. In windows that did not stop early every scheduled first turn was dispatched",
+    "input_tokens_per_second": "Offered prompt load: prepared prompt tokens of all scheduled measured turns / 360 s, including cached prefix. Matches server-reported prompt tokens within 0.0005% in every window where all turns completed",
+    "early_overload_stop": "Stop after 120 s with a continuously nonempty engine waiting queue, or at once if more than 256 requests are waiting; unsent and unfinished turns count as misses",
+    "client_worker_ceiling": 256
+  },
+  "pass_rule": {
+    "completion_p95_seconds_max": 30,
+    "first_output_p95_seconds_max": 10,
+    "population": "All scheduled measured turns; a turn that does not finish counts as infinite latency",
+    "2xtp4": "Both replicas must pass",
+    "dep8": "Both streams pooled, shared queue empty after both streams finish, common drain deadline",
+    "quality_flags": "Length-capped and repetition-flagged turns count as finished; flags are reported separately"
+  },
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "max_tokens": 4096,
+    "chat_template_kwargs": {
+      "thinking": true,
+      "reasoning_effort": 50
+    },
+    "seed": "Per request, derived from the cell's seed label and request ID; identical across paired arms",
+    "tools": "12 function definitions offered on every request",
+    "cache_namespace": "Each cell uses its own cache_salt, so prefix caching is shared within a cell (across turns of a conversation) and not across cells"
+  },
+  "workloads": {
+    "W1": {
+      "turns": 8,
+      "prompt_tokens_range": [
+        48697,
+        116205
+      ],
+      "prompt_tokens_median_by_turn": [
+        51762,
+        54928,
+        57050,
+        60334,
+        63818,
+        67345,
+        70195,
+        73428
+      ],
+      "populations": {
+        "label 0.15": "own tokenized population (November 19)",
+        "label 0.45": "own tokenized population (November 17)",
+        "label 0.3": "schedule applied to the 0.45 population's conversations",
+        "midpoint labels": "schedule applied to the 1.35 population's conversations (tokenized November 20)",
+        "mean_prompt_tokens_per_conversation": "per cell in tables/arms.csv as input_tokens_per_second x 360 / measured_conversations"
+      }
+    },
+    "W2": {
+      "turns": 4,
+      "prompt_tokens_range": [
+        243476,
+        445066
+      ],
+      "prompt_tokens_median_by_turn": [
+        249480,
+        252776,
+        255996,
+        259513
+      ],
+      "populations": {
+        "label 0.08": "own tokenized population (November 19)",
+        "labels 0.12, 0.16 and midpoint": "schedule applied to the 0.32 population's conversations (tokenized November 17)",
+        "mean_prompt_tokens_per_conversation": "per cell in tables/arms.csv as input_tokens_per_second x 360 / measured_conversations"
+      }
+    },
+    "lineage": "All populations use the same input profile and public text; they differ only in which conversations were drawn. Deriving a lower-rate schedule from a larger population reuses tokenized requests without re-tokenizing",
+    "transcripts": "Earlier assistant turns come from a frozen transcript, so generated answers do not change later prompts"
+  }
+}

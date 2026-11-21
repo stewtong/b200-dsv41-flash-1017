@@ -215,8 +215,20 @@ def verify(root):
         require(svg.tag == '{http://www.w3.org/2000/svg}svg' and '39 core windows plus split diagnostic' in text and
                 'Red X=failed drain' in text and 'categorical, not a fitted trend' in text, 'chart scope differs')
     verify_figures(root)
+    turns = {'W1': 8, 'W2': 4}
+    measured_rows = rows(root / 'tables/measured-arrivals.csv')
+    measured = {row['capture_id']: row for row in measured_rows}
+    require(len(measured_rows) == len(measured) == len(table) and set(measured) == {row['capture_id'] for row in table},
+            'measured-arrival identities differ')
+    for row in table:
+        arrival = measured[row['capture_id']]
+        conversations = int(row['measured_turns']) / turns[row['workload']]
+        require(conversations.is_integer() and int(arrival['measured_conversations']) == conversations and
+                arrival['workload'] == row['workload'] and arrival['arm'] == row['arm'] and arrival['rate_label'] == row['rate'] and
+                arrival['repeat'] == row['repeat'], 'measured arrivals differ from measured turns')
+        near(arrival['measured_arrivals_per_second'], round(conversations / 360, 4), 'measured arrival rate differs')
     report = (root / 'report.md').read_text()
-    require('maximum sustainable rates remain null' in report and 'INCONCLUSIVE_CACHE_STATE_CONFOUNDED' in report and
+    require('measured-arrivals.csv' in report and 'maximum sustainable rates remain null' in report and 'INCONCLUSIVE_CACHE_STATE_CONFOUNDED' in report and
             'turns within conversations are correlated' in report and 'No direct speedup or capacity ratio follows' in report and
             'not a claim of fresh-node or full-benchmark reproduction' in report and '\u2014' not in report,
             'final report qualifications differ')
