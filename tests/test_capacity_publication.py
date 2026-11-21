@@ -56,7 +56,8 @@ def nospec_pass(rows):
     for row in rows:
         if row['window'] == 'A+' and row['workload'] == 'W1' and row['rate_label_per_stream'] == '0.15' and row['speculation'] == 'NoSpec':
             row.update(completion_p95_s='25.0', drain_ok='True', completed_turns=row['scheduled_measured_turns'],
-                       turns_within_30s=row['scheduled_measured_turns'], unit_pass='True')
+                       turns_within_30s=row['scheduled_measured_turns'], unit_pass='True',
+                       offered_output_tokens_per_second_per_gpu=str(round(int(row['output_tokens_completed_turns']) / 360 / 4, 1)))
 
 
 class CapacityPublicationTests(unittest.TestCase):
@@ -88,6 +89,19 @@ class CapacityPublicationTests(unittest.TestCase):
             'nospec_acceptance': ('tables/arms.csv', lambda rows: first(rows, speculation='NoSpec').update(draft_token_acceptance_rate='0.4'),
                                   'NoSpec reports acceptance'),
             'usability': ('tables/arms.csv', lambda rows: rows[0].update(cell_usable='False'), 'unusable window'),
+            'output_rate': ('tables/arms.csv', lambda rows: first(rows, window='A', workload='W1', rate_label_per_stream='0.289', unit='replica 0').update(
+                offered_output_tokens_per_second_per_gpu='900.0'), 'offered output rate differs'),
+            'output_rate_incomplete': ('tables/arms.csv', lambda rows: first(rows, window='A', workload='W1', rate_label_per_stream='0.45', unit='replica 0').update(
+                offered_output_tokens_per_second_per_gpu='800.0'), 'offered output rate differs'),
+            'output_rate_dep8': ('tables/arms.csv', lambda rows: first(rows, window='B', workload='W1', rate_label_per_stream='0.15').update(
+                offered_output_tokens_per_second_per_gpu='540.0'), 'offered output rate differs'),
+            'output_tokens': ('tables/arms.csv', lambda rows: first(rows, window='A', workload='W1', rate_label_per_stream='0.289', unit='replica 0').update(
+                output_tokens_completed_turns='0'), 'output tokens differ from completed turns'),
+            'output_tokens_over_cap': ('tables/arms.csv', lambda rows: first(rows, window='B', workload='W1', rate_label_per_stream='0.15').update(
+                output_tokens_completed_turns='99999999'), 'output tokens differ from completed turns'),
+            'output_rate_blank': ('tables/arms.csv', lambda rows: first(rows, window='A', workload='W1', rate_label_per_stream='0.289', unit='replica 0').update(
+                offered_output_tokens_per_second_per_gpu=''), 'offered output rate differs'),
+            'preemptions': ('tables/arms.csv', lambda rows: rows[0].update(preemptions='7'), 'preemptions differ'),
             'replica_verdict': ('tables/node-cells.csv', lambda rows: first(rows, window='A', rate_label_per_stream='0.2935').update(**{'pass': 'True'}),
                                 '2xtp4 node verdict differs from replicas'),
             'node_swap': ('tables/node-cells.csv', swap_node_row, 'node coverage differs'),
@@ -104,6 +118,23 @@ class CapacityPublicationTests(unittest.TestCase):
         for kind, (name, change, message) in cases.items():
             with self.subTest(kind=kind):
                 self.assert_rejected(CAPACITY, lambda root: change_table(root / name, change), message)
+
+    def test_missing_output_column_is_rejected(self):
+        def drop(root):
+            path = root / 'tables/arms.csv'
+            with path.open(newline='') as stream:
+                reader = csv.DictReader(stream); fields = [f for f in reader.fieldnames if f != 'offered_output_tokens_per_second_per_gpu']; rows = list(reader)
+            with path.open('w', newline='') as stream:
+                writer = csv.DictWriter(stream, fieldnames=fields, extrasaction='ignore'); writer.writeheader(); writer.writerows(rows)
+        self.assert_rejected(CAPACITY, drop, 'arms columns differ')
+
+    def test_report_output_figures_must_match_the_table(self):
+        def edit(root):
+            path = root / 'report.md'
+            text = path.read_text()
+            self.assertIn('831 and 846 offered output tokens/s per GPU', text)
+            path.write_text(text.replace('831 and 846 offered output tokens/s per GPU', '831 and 946 offered output tokens/s per GPU'))
+        self.assert_rejected(CAPACITY, edit, 'report output figures differ from the table')
 
     def test_summary_and_configuration_changes_are_rejected(self):
         cases = {

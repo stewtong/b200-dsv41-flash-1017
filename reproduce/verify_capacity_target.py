@@ -5,6 +5,8 @@ import math
 from pathlib import Path
 
 MEASURED_SECONDS = 360
+GPUS_PER_ENGINE = {'2xtp4': 4}
+OUTPUT_COLUMNS = {'output_tokens_completed_turns', 'offered_output_tokens_per_second_per_gpu', 'preemptions'}  # dep8 streams share one eight-GPU engine and carry no per-stream per-GPU rate
 TARGET_COMPLETION, TARGET_FIRST_OUTPUT = 30, 10
 IMAGE = 'vllm/vllm-openai@sha256:aeb580d55ee3dcccd7b5c78d7871326f367bee5cfd8ca8e411c253d7983a0046'
 KV_TOKENS = 40819149
@@ -67,6 +69,7 @@ def verify(root):
     summary = json.loads((root / 'summary.json').read_text())
     config = json.loads((root / 'configuration.json').read_text())
     arms, node = rows(root / 'tables/arms.csv'), rows(root / 'tables/node-cells.csv')
+    require(bool(arms) and OUTPUT_COLUMNS <= set(arms[0]), 'arms columns differ')
     paired = rows(root / 'tables/k5-nospec-paired.csv')
     turns = {w: config['workloads'][w]['turns'] for w in ('W1', 'W2')}
 
@@ -103,6 +106,15 @@ def verify(root):
         require(row['measured_arrivals_per_second'] == str(round(int(row['measured_conversations']) / MEASURED_SECONDS, 4)),
                 'measured arrivals differ')
         check_unit_counts(row, turns[row['workload']])
+        output, completed = int(row['output_tokens_completed_turns']), int(row['completed_turns'])
+        # Every completed turn produces at least one token and at most the configured output cap.
+        require(completed <= output <= completed * config['sampling']['max_tokens'], 'output tokens differ from completed turns')
+        require(row['preemptions'] == '0', 'preemptions differ from the stated none')
+        complete = completed == int(row['scheduled_measured_turns'])
+        expected_rate = (str(round(output / MEASURED_SECONDS / GPUS_PER_ENGINE[row['layout']], 1))
+                         if row['layout'] in GPUS_PER_ENGINE and complete else '')
+        # The producer writes str(round(x, 1)); the string comparison fails closed on any other formatting.
+        require(row['offered_output_tokens_per_second_per_gpu'] == expected_rate, 'offered output rate differs')
         if row['speculation'] == 'NoSpec':
             require(row['acceptance_length'] == row['draft_token_acceptance_rate'] == '', 'NoSpec reports acceptance')
         else:
@@ -168,12 +180,32 @@ def verify(root):
                 int(row['k5_turns_within_30s']) <= scheduled and int(row['nospec_turns_within_30s']) <= scheduled, 'paired counts differ')
 
     report = (root / 'report.md').read_text()
+    # Output figures stated in the report at the highest all-passing loads must come from these rows.
+    stated = {}
+    for workload in ('W1', 'W2'):
+        limit = summary['highest_all_passing_measured_arrivals_per_node'][workload]
+        units = [r for r in arms if r['window'] == 'A' and r['workload'] == workload and
+                 abs(2 * float(r['measured_arrivals_per_second']) - limit) < 2e-4]
+        require(len(units) == 2, 'limit rows differ')
+        stated[workload] = sorted(units, key=lambda r: float(r['offered_output_tokens_per_second_per_gpu']))
+    rate = lambda r: f"{round(float(r['offered_output_tokens_per_second_per_gpu'])):,}"
+    per_turn = sorted(int(r['output_tokens_completed_turns']) / int(r['completed_turns']) for w in stated.values() for r in w)
+    kv_need = 64 * (config['workloads']['W2']['prompt_tokens_range'][1] + config['sampling']['max_tokens'])
+    require(f"{rate(stated['W1'][0])} and {rate(stated['W1'][1])} offered output tokens/s per GPU on the two W1 replicas and "
+            f"{rate(stated['W2'][0])} and {rate(stated['W2'][1])} on W2, at {round(per_turn[0]):,} to {round(per_turn[-1]):,} output tokens per turn"
+            in report and f'({kv_need:,} tokens)' in report and kv_need <= KV_TOKENS and
+            "divided by the engine's four GPUs; [arms.csv](tables/arms.csv) gives it only where every scheduled measured turn completed, "
+            "and not for `dep8` streams, which share one eight-GPU engine" in report, 'report output figures differ from the table')
     require('measured arrivals' in report and 'NoSpec missed the 30 s target at the lowest load' in report and
             'The mechanism behind the input-token match is not measured' in report and 'not a task-quality measurement' in report and
-            'no fresh-node replication' in report and 'not attributed to random tokens alone' in report and '—' not in report,
+            'no fresh-node replication' in report and 'not attributed to random tokens alone' in report and
+            'Offered output tokens/s per GPU counts the output tokens' in report and 'running batch size is not published' in report and
+            '—' not in report,
             'report qualifications differ')
     return {'status': 'passed', 'windows': len(windows), 'unit_rows': len(arms), 'node_verdicts': len(node),
             'highest_all_passing_measured_arrivals_per_node': summary['highest_all_passing_measured_arrivals_per_node'],
             'scope': 'Table identities, derived arithmetic and verdict consistency, including count-quantile agreement '
+                     'and the report\'s output figures at the stated limits (output tokens are bounded by completed turns and the cap, '
+                     'not recounted from private raw records); '
                      'to within one turn (a p95 within one turn of the 30 s boundary cannot be checked from counts); '
                      'node p95 values and private raw records are not recomputed.'}

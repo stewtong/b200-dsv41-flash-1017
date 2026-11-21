@@ -1,7 +1,7 @@
 <!-- register: technical benchmark report | reader: applied AI researchers and serving engineers checking the evidence | consumed: methods and results review after the README -->
 # Two TP4 replicas with DSpark K5 met a 30-second p95 at up to about 0.54 eight-turn conversations/s per node, with thinking on
 
-On one eight-B200 node, two four-GPU tensor-parallel replicas (`2xtp4`) with static DSpark speculative decoding (K5) kept completion p95 at or under 30 s on every run up to 0.544 W1 or 0.267 W2 conversations per second per node, the highest tested loads where all runs passed (one arrival draw each). At 5 to 6% more W1 load, one of three draws passed. Without speculation, the same engine configuration on the other four GPUs missed the target at the lowest load tested in both workloads. One eight-way data- and expert-parallel engine (`dep8`) with K5 had 1.5 to 2.4 times `2xtp4`'s completion p95 at the same loads (median of runs on the same draw). Measurements ran on November 19 and 20, 2026.
+On one eight-B200 node, two four-GPU tensor-parallel replicas (`2xtp4`) with static DSpark speculative decoding (K5) kept completion p95 at or under 30 s on every run of the two-replica sweep up to 0.544 W1 or 0.267 W2 conversations per second per node, the highest tested loads where all runs passed (one arrival draw each). At 5 to 6% more W1 load, one of three draws passed. Without speculation, the same engine configuration on the other four GPUs missed the target at the lowest load tested in both workloads. One eight-way data- and expert-parallel engine (`dep8`) with K5, placing requests across ranks without session affinity, had 1.5 to 2.3 times `2xtp4`'s completion p95 at the same loads (median of runs on the same draw). Measurements ran on November 19 and 20, 2026.
 
 All loads in this report are **measured arrivals**: conversations whose first turn was scheduled in the 360-second measured period of the realized arrival schedule, divided by 360. In every window that did not stop early, all of those first turns were dispatched. The load generator's rate setting is kept only as an identifier in the tables, because single Poisson draws over 360 s landed up to 18% from it.
 
@@ -25,7 +25,7 @@ All loads in this report are **measured arrivals**: conversations whose first tu
 
 ## Capacity of `2xtp4` K5
 
-A draw is one Poisson arrival schedule; a run is one execution of a draw. Input tokens/s is the offered prompt load: prepared prompt tokens of all scheduled measured turns over 360 s, including the cached prefix. Where every turn completed, it matches the server-reported prompt tokens within 0.0005%.
+A draw is one Poisson arrival schedule; a run is one execution of a draw. Input tokens/s is the offered prompt load: prepared prompt tokens of all scheduled measured turns over 360 s, including the cached prefix. Where every turn completed, it matches the server-reported prompt tokens within 0.0005%. Offered output tokens/s per GPU counts the output tokens, thinking included, of those turns over 360 s, divided by the engine's four GPUs; [arms.csv](tables/arms.csv) gives it only where every scheduled measured turn completed, and not for `dep8` streams, which share one eight-GPU engine.
 
 ### W1
 
@@ -56,7 +56,7 @@ The W1 node value of 29.7 s and the W2 value of 29.9 s failed because one replic
 
 The 284K draw at 0.539 also ran three more times on replica 0 alone, beside the overloaded NoSpec engine on the other GPUs ([K5 against NoSpec](#k5-against-nospec)); one of those runs reached 30.3 s. Counting every K5 replica run of that draw, 8 of 9 met the target.
 
-**The limit tracks total prompt tokens, not uncached prefill.** Within `2xtp4` K5, all 9 draws below 140K input tokens/s per replica passed, and 3 of the 9 draws from 141.9K to 156.1K passed (one of them in three runs). Both workloads stop passing in the same band even though W2 conversations are about twice as long and arrive half as often. The prefix cache served 85.5% of W1 prompt tokens and 74.6% of W2, so at the limit the uncached prefill was about 20.7K tokens/s per replica on W1 and 36.0K on W2. The workloads match on total prompt tokens including cached prefix, not on prefill work; no measurement here identifies the mechanism.
+**The limit tracks total prompt tokens, not uncached prefill.** Within `2xtp4` K5, all 9 draws below 140K input tokens/s per replica passed, and 3 of the 9 draws from 141.9K to 156.1K passed (one of them in three runs). Both workloads stop passing in the same band even though W2 conversations are about twice as long and arrive half as often. The prefix cache served 85.5% of W1 prompt tokens and 74.6% of W2, so at about 142K offered prompt tokens/s per replica the uncached prefill was about 20.7K tokens/s on W1 and 36.0K on W2. The workloads match on total prompt tokens including cached prefix, not on prefill work. At the highest loads where every run passed, the measured turns carried 831 and 846 offered output tokens/s per GPU on the two W1 replicas and 201 and 212 on W2, at 1,508 to 1,593 output tokens per turn. No window in this study preempted a request, and each `2xtp4` K5 engine's startup-reported KV capacity of 40,819,149 tokens holds its 64-sequence limit at the longest W2 prompt plus the 4,096-token output cap (28,746,368 tokens), so KV capacity could not block admission below the sequence limit; no measurement here identifies the mechanism.
 
 **Prompt totals differ slightly between draws.** Prompts are calibrated to per-turn token targets, so totals per conversation are nearly constant within one prepared population (W1: 527,318.6 and 527,318.3 tokens for two schedules over the same population) and differ by up to 2.5% across populations (W1: 514K to 527K). That is why the input-token column can differ at equal arrivals.
 
@@ -90,13 +90,13 @@ A separate paired capture on November 19 ran the same two engine configurations 
 | W2 | 0.211 | 0 of 3 | 57.5, 51.2, 72.1 | 27.1, 22.6, 24.8 |
 | W2 | 0.372 | 0 of 3 | n/a, 116.2, n/a | 44.7, 44.9, 45.4 |
 
-No `dep8` load passed all three runs. Taking the median of the runs at each load on the same draw, `dep8` completion p95 was 1.5 times `2xtp4`'s on W1 at 0.350, 2.1 times at 0.539, and 2.3 to 2.4 times on W2 at 0.161 and 0.211; at W2 0.372 two `dep8` runs have no defined p95. The `dep8` and `2xtp4` runs were made five to six and a half hours apart on the same node.
+No `dep8` load passed all three runs. Taking the median of the runs at each load on the same draw, `dep8` completion p95 was 1.5 times `2xtp4`'s on W1 at 0.350, 2.1 times at 0.539, and 2.3 times on W2 at 0.161 and 0.211; at W2 0.372 two `dep8` runs have no defined p95. The `dep8` and `2xtp4` runs were made five to six and a half hours apart on the same node.
 
 The configurations differ in more than GPU grouping: attention backend, KV format, MoE backend, sequence limits and prefix-cache locality. Each `2xtp4` stream stays on one replica, while `dep8` places requests across its data-parallel ranks without session affinity. At the W1 loads compared above, the prefix cache served 59% to 68% of prompt tokens on `dep8` against 85.4% on `2xtp4`; on W2 it served 52% to 58% against 74.6%. The earlier [multi-turn load study](../sustained-speculation-layouts/report.md), which routed each conversation to one rank, measured a much smaller `dep8` gap. These results compare two complete configurations and do not isolate data or expert parallelism.
 
 ## Speculative acceptance and a trace-replay control
 
-Acceptance length is `1 + accepted draft tokens / draft steps`, from vLLM's speculative-decoding counters over each window; it counts the token every step produces. On real-text prompts it was 2.90 to 3.00 on W1 and 3.05 to 3.20 on W2 for `2xtp4`, and 2.93 to 2.97 on W1 and 3.12 to 3.18 on W2 for `dep8` ([arms.csv](tables/arms.csv)). Draft-token acceptance on W1 `2xtp4` ranged from 38.0% to 40.0%.
+Acceptance length is `1 + accepted draft tokens / draft steps`, from vLLM's speculative-decoding counters over each window; it counts the token every step produces. On real-text prompts it was 2.90 to 3.00 on W1 and 3.05 to 3.20 on W2 for `2xtp4`, and 2.93 to 2.97 on W1 and 3.12 to 3.18 on W2 for `dep8` ([arms.csv](tables/arms.csv)). Draft-token acceptance on W1 `2xtp4` ranged from 38.0% to 40.0%. These window averages cover every K5 window, at measured arrivals of 0.175 to 0.531 W1 and 0.081 to 0.186 W2 conversations/s per replica or stream, including loads past the limit. Every window held many requests in flight, so none is a batch-1 value; running batch size is not published. A TensorRT-LLM bug report ([issue 16767](https://github.com/NVIDIA/TensorRT-LLM/issues/16767)) describes DSpark acceptance collapsing toward one at generation batch sizes above one in disaggregated serving and attributes it to request-ID handling in that engine; acceptance in these vLLM windows stayed near three.
 
 A separate control replayed a private 15-minute request trace (arrival times, prompt and output lengths, prefix-hash IDs; the trace is not published) with `vllm bench serve` and its `timed_trace` dataset, against replica 0 only. That dataset fills each prefix-hash chunk with token IDs sampled uniformly from the vocabulary (`TimedTrace._sample_token` in `vllm/benchmarks/datasets/datasets.py` at build `e0d00e4b8`). The replay also used the plain completions endpoint without a chat template, thinking or tools, and forced output lengths to the trace's values. Mean acceptance length was 1.81 (0.81 accepted draft tokens per step; 16.3% of draft tokens accepted), and 1.80 in a second replay at twice the request rate. On the same engine, a W1 window on the 284K draw gave 2.96 (1.96 accepted per step; 39.2%). The replay's completion p95 was 56.9 s. No NoSpec replay was run, and the replay differs from W1 in prompt content, endpoint, output control and load, so the gap is not attributed to random tokens alone.
 
@@ -113,8 +113,9 @@ At W1 0.175 per replica, over all 1,512 scheduled turns per arm (NoSpec finished
 - Most loads near the limit rest on one arrival draw; the W1 limit at 0.544 and the W2 limit at 0.267 each rest on one.
 - `2xtp4` and `dep8` verdicts use different pooling rules, stated above.
 - NoSpec ran on one engine only, and its limit was not found.
-- `dep8` used one engine shared by two streams; its counters cannot be split by stream.
+- `dep8` used one engine shared by two streams; its counters cannot be split by stream. Each stream's row covers the shared engine over that stream's own telemetry span, so the two rows of a window differ slightly.
 - The mechanism behind the input-token match is not measured.
+- Whether K5 output follows the same distribution as NoSpec was not tested.
 - The [multi-turn load study](../sustained-speculation-layouts/report.md) in this repository used forced 400-token outputs with thinking off and a session-affinity router; its W1 completion p95 of 4.17 s at 0.531 measured conversations/s per node is not directly comparable. Output length is the likely main difference, but prompts and client also differ.
 
 ## Files
@@ -122,7 +123,7 @@ At W1 0.175 per replica, over all 1,512 scheduled turns per arm (NoSpec finished
 | File | Contents |
 | --- | --- |
 | [tables/node-cells.csv](tables/node-cells.csv) | Node-level verdicts for `2xtp4` K5 and `dep8` K5, with `dep8` pooled first-output p95 and drain status |
-| [tables/arms.csv](tables/arms.csv) | Per replica or stream: measured arrivals, offered input tokens/s, latency quantiles, drain status, acceptance, prefix-cache hit fraction |
+| [tables/arms.csv](tables/arms.csv) | Per replica or stream: measured arrivals, offered input tokens/s, output tokens and offered output tokens/s per GPU, latency quantiles, drain status, acceptance, prefix-cache hit fraction, preemptions |
 | [tables/k5-nospec-paired.csv](tables/k5-nospec-paired.csv) | November 19 paired turn ratios with bootstrap intervals |
 | [configuration.json](configuration.json) | Serving arguments, placement, request settings, pass rules, workload lineage, trace-replay arguments, producer code hashes |
 | [input-origin.json](input-origin.json) | Prompt text origins, hashes and licenses |
